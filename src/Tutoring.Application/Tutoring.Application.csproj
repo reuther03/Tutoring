@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Tutoring.Domain\Tutoring.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="Tutoring.Api"/>
+    </ItemGroup>
+
 </Project>
