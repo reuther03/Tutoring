@@ -2,7 +2,7 @@
 
 namespace Tutoring.Common;
 
-public static class Extensions
+public static class ConfigurationExtensions
 {
     public static T GetOptions<T>(this IConfiguration configuration, string sectionName) where T : class, new()
     {
