@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Tutoring.Common.ValueObjects;
 using Tutoring.Domain.Subjects;
 
 namespace Tutoring.Infrastructure.Database.Configurations;
@@ -8,6 +9,8 @@ internal sealed class SubjectConfiguration : IEntityTypeConfiguration<Subject>
 {
     public void Configure(EntityTypeBuilder<Subject> builder)
     {
+        builder.HasKey(x => x.Id);
+
         builder.OwnsMany(x => x.CompetenceIds, ownedBuilder =>
         {
             ownedBuilder.WithOwner().HasForeignKey("SubjectId");
@@ -21,6 +24,11 @@ internal sealed class SubjectConfiguration : IEntityTypeConfiguration<Subject>
             builder.Metadata.FindNavigation(nameof(Subject.CompetenceIds))!
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
         });
+
+        builder.Property(x => x.Description)
+            .HasConversion(x => x.Value, x => new Description(x))
+            .IsRequired()
+            .HasMaxLength(200);
 
         // NOTE: nie zadziałają metody `Contains` i `Any` na kolekcji CompetenceIds
         // builder.Property(x => x.CompetenceIds)

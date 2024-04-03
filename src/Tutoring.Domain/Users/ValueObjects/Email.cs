@@ -8,6 +8,10 @@ public sealed partial record Email : ValueObject
 {
     public string Value { get; }
 
+    private Email()
+    {
+    }
+
     public Email(string value)
     {
         Validate(value);

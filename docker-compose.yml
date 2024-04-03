@@ -1,0 +1,26 @@
+﻿version: '3.9'
+
+networks:
+  Tutoring.Network:
+    name: Tutoring.Network
+
+services:
+  tutoring.postgres:
+    image: postgres:latest
+    container_name: Tutoring.Postgres
+    hostname: Tutoring.Postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.container/postgres:/var/lib/postgresql
+      - ./.container/postgres:/var/log/postgresql
+    command: -p 5432
+    networks:
+      - Tutoring.Network
+
+volumes:
+    postgres:
+      driver: local

@@ -7,6 +7,11 @@ public record  Description : ValueObject
 {
     public string Value { get; }
 
+    private Description()
+    {
+
+    }
+
     public Description(string value)
     {
         if (string.IsNullOrWhiteSpace(value))

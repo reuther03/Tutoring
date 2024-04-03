@@ -5,15 +5,14 @@ using Tutoring.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 
-
 #region services
 
 var services = builder.Services;
 
 services
-    .AddDomain()
+    .AddDomain(builder.Configuration)
     .AddApplication()
-    .AddInfrastructure();
+    .AddInfrastructure(builder.Configuration);
 
 #endregion
 
