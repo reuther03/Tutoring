@@ -11,7 +11,7 @@ public abstract class User : AggregateRoot<UserId>
     public Password Password { get; private set; }
     public Role Role { get; private set; }
 
-    private User()
+    protected User()
     {
     }
 

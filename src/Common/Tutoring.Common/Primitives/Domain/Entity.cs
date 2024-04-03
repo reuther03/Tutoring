@@ -1,6 +1,4 @@
-﻿using Tutoring.Common.Primitives.DomainEvents;
-
-namespace Tutoring.Common.Primitives.Domain;
+﻿namespace Tutoring.Common.Primitives.Domain;
 
 public abstract class Entity<TId> : IEquatable<Entity<TId>>
 {

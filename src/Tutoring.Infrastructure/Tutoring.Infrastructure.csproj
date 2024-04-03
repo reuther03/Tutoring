@@ -22,4 +22,8 @@
         <InternalsVisibleTo Include="Tutoring.Api"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Auth\" />
+    </ItemGroup>
+
 </Project>

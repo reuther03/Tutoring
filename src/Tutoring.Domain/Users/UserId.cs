@@ -1,20 +1,11 @@
-using Tutoring.Common.Exceptions.Domain;
 using Tutoring.Common.Primitives.Domain;
 
 namespace Tutoring.Domain.Users;
 
-public record UserId : ValueObject
+public record UserId : EntityId
 {
-    public Guid Value { get; }
-
-    public UserId(Guid value)
+    public UserId(Guid value) : base(value)
     {
-        if (value == Guid.Empty)
-        {
-            throw new DomainException("User id cannot be empty.");
-        }
-
-        Value = value;
     }
 
     public static UserId New() => new(Guid.NewGuid());

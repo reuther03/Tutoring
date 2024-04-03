@@ -3,7 +3,7 @@ using Tutoring.Domain.Users;
 
 namespace Tutoring.Domain.Availabilities;
 
-public class Availability : Entity<AvailabilityId>
+public class Availability : Entity<Guid>
 {
     public TimeOnly From { get; private set; }
     public TimeOnly To { get; private set; }
@@ -14,7 +14,7 @@ public class Availability : Entity<AvailabilityId>
     {
     }
 
-    private Availability(AvailabilityId id, TimeOnly from, TimeOnly to, DayOfWeek day, UserId userId)
+    private Availability(Guid id, TimeOnly from, TimeOnly to, DayOfWeek day, UserId userId)
         : base(id)
     {
         From = from;
@@ -25,7 +25,7 @@ public class Availability : Entity<AvailabilityId>
 
     public static Availability Create(TimeOnly from, TimeOnly to, DayOfWeek day, UserId userId)
     {
-        var availability = new Availability(AvailabilityId.New(), from, to, day, userId);
+        var availability = new Availability(Guid.NewGuid(), from, to, day, userId);
         return availability;
     }
 }

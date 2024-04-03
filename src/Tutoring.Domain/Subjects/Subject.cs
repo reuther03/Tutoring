@@ -6,13 +6,23 @@ namespace Tutoring.Domain.Subjects;
 
 public class Subject : Entity<Guid>
 {
-    private readonly List<Competence> _competenceId = [];
+    private readonly List<CompetenceId> _competenceIds = [];
 
     public Description Description { get; private set; }
-    public IReadOnlyList<Competence> Competence => _competenceId.AsReadOnly();
+    public IReadOnlyList<CompetenceId> CompetenceIds => _competenceIds.AsReadOnly();
 
-    private Subject(Description description)
+    private Subject()
+    {
+    }
+
+    private Subject(Guid id, Description description) : base(id)
     {
         Description = description;
+    }
+
+    public static Subject Create(Description description)
+    {
+        var subject = new Subject(Guid.NewGuid(), description);
+        return subject;
     }
 }

@@ -12,9 +12,19 @@ public class CompetencesGroup : Entity<Guid>
     public Description Description { get; private set; }
     public IReadOnlyList<Competence> Competences => _competences.AsReadOnly();
 
+    private CompetencesGroup()
+    {
+    }
+
     public CompetencesGroup(Guid id, Name name, Description description) : base(id)
     {
         Name = name;
         Description = description;
+    }
+
+    public static CompetencesGroup Create(Name name, Description description)
+    {
+        var competencesGroup = new CompetencesGroup(Guid.NewGuid(), name, description);
+        return competencesGroup;
     }
 }
