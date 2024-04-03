@@ -1,11 +1,10 @@
 using MediatR;
+using Tutoring.Common.Primitives;
 
-namespace TripManager.Common.Abstractions;
+namespace Tutoring.Common.Abstractions;
 
-public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
-    where TCommand : ICommand<TResponse>
-{
-}
-
-public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand, Unit>
+public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand, Result>
     where TCommand : ICommand;
+
+public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>>
+    where TCommand : ICommand<TResponse>;

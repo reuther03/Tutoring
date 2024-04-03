@@ -1,6 +1,8 @@
-﻿namespace Tutoring.Api.Controllers;
+﻿using Tutoring.Api.Controllers.Base;
 
-public class UserController
+namespace Tutoring.Api.Controllers;
+
+public class UserController : BaseController
 {
-    
+
 }

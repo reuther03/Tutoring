@@ -18,9 +18,9 @@ public sealed class Tutor : User
     {
     }
 
-    public static Tutor Create(UserId id, Email email, Name firstname, Name lastname, Password password)
+    public static Tutor Create(Email email, Name firstname, Name lastname, Password password)
     {
-        var tutor = new Tutor(id, email, firstname, lastname, password);
+        var tutor = new Tutor(UserId.New(), email, firstname, lastname, password);
         return tutor;
     }
 }

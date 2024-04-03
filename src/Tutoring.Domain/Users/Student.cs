@@ -19,9 +19,9 @@ public sealed class Student : User
     {
     }
 
-    public static Student Create(UserId id, Email email, Name firstname, Name lastname, Password password)
+    public static Student Create(Email email, Name firstname, Name lastname, Password password)
     {
-        var student = new Student(id, email, firstname, lastname, password);
+        var student = new Student(UserId.New(), email, firstname, lastname, password);
         return student;
     }
 }

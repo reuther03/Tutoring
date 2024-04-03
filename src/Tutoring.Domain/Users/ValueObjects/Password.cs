@@ -8,10 +8,6 @@ public record Password : ValueObject
 {
     public string Value { get; }
 
-    private Password()
-    {
-    }
-
     public Password(string passwordHash)
     {
         Value = passwordHash;

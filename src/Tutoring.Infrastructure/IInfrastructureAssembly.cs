@@ -1,3 +1,3 @@
-namespace TripManager.Infrastructure;
+namespace Tutoring.Infrastructure;
 
 public interface IInfrastructureAssembly;

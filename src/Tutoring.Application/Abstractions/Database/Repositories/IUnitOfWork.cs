@@ -1,6 +1,8 @@
-﻿namespace Tutoring.Application.Abstractions.Database.Repositories;
+﻿using Tutoring.Common.Primitives;
 
-public class IUnitOfWork
+namespace Tutoring.Application.Abstractions.Database.Repositories;
+
+public interface IUnitOfWork
 {
-    
+    Task<Result<bool>> CommitAsync(CancellationToken cancellationToken = default);
 }

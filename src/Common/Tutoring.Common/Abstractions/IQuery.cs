@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace TripManager.Common.Abstractions;
+namespace Tutoring.Common.Abstractions;
 
 public interface IQuery<out TResponse> : IRequest<TResponse>;

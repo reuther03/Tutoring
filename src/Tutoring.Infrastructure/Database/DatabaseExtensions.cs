@@ -2,7 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tutoring.Application.Abstractions.Database;
+using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Common;
+using Tutoring.Common.Extensions;
+using Tutoring.Infrastructure.Database.Repository;
 
 namespace Tutoring.Infrastructure.Database;
 
@@ -16,6 +19,8 @@ public static class DatabaseExtensions
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
         services.AddScoped<ITutoringDbContext, TutoringDbContext>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddHostedService<DatabaseInitializer>();
 

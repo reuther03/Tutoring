@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Tutoring.Common;
+namespace Tutoring.Common.Extensions;
 
 public static class ConfigurationExtensions
 {
