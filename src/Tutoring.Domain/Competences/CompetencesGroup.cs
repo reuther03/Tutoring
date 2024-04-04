@@ -27,4 +27,9 @@ public class CompetencesGroup : Entity<Guid>
         var competencesGroup = new CompetencesGroup(Guid.NewGuid(), name, description);
         return competencesGroup;
     }
+
+    public void AddCompetences(IEnumerable<Competence> competences)
+    {
+        _competences.AddRange(competences);
+    }
 }
