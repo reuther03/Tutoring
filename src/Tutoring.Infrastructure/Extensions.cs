@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tutoring.Application;
+using Tutoring.Infrastructure.Auth;
 using Tutoring.Infrastructure.Database;
 using Tutoring.Infrastructure.Swagger;
 
@@ -15,6 +16,8 @@ internal static class Extensions
         services.AddDatabase(configuration);
         services.AddEndpointsApiExplorer();
         services.AddSwaggerDocumentation();
+
+        services.AddAuth(configuration);
 
         services.AddMediatR(config =>
         {
@@ -30,6 +33,8 @@ internal static class Extensions
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
         app.UseSwaggerDocumentation();
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.MapControllers();
 
         return app;

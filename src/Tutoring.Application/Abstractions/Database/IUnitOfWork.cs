@@ -1,6 +1,6 @@
 ﻿using Tutoring.Common.Primitives;
 
-namespace Tutoring.Application.Abstractions.Database.Repositories;
+namespace Tutoring.Application.Abstractions.Database;
 
 public interface IUnitOfWork
 {

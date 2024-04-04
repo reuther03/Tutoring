@@ -1,3 +1,4 @@
+using Tutoring.Api.OptionsSetup;
 using Tutoring.Application;
 using Tutoring.Domain;
 using Tutoring.Infrastructure;
@@ -13,6 +14,9 @@ services
     .AddDomain(builder.Configuration)
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
+
+services.ConfigureOptions<JwtOptionsSetup>();
+services.ConfigureOptions<JwtBearerOptionsSetup>();
 
 #endregion
 
