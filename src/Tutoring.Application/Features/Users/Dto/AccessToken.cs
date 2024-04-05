@@ -1,5 +1,4 @@
-﻿using Tutoring.Common.Primitives;
-using Tutoring.Domain.Users;
+﻿using Tutoring.Domain.Users;
 
 namespace Tutoring.Application.Features.Users.Dto;
 

@@ -15,6 +15,7 @@ public record CompetenceId : EntityId
     public static implicit operator Guid(CompetenceId competenceId) => competenceId.Value;
     public static implicit operator CompetenceId(Guid userId) => new(userId);
 
+
     public override string ToString() => Value.ToString();
 
     protected override IEnumerable<object> GetAtomicValues()

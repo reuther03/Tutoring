@@ -1,7 +1,6 @@
 ﻿using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Common.Abstractions;
-using Tutoring.Common.Exceptions.Application;
 using Tutoring.Common.Extensions;
 using Tutoring.Common.Primitives;
 using Tutoring.Domain.Users;

@@ -1,4 +1,5 @@
-﻿using Tutoring.Domain.Competences;
+﻿using Tutoring.Common.Exceptions.Domain;
+using Tutoring.Domain.Competences;
 using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Domain.Users;
@@ -22,5 +23,15 @@ public sealed class Tutor : User
     {
         var tutor = new Tutor(UserId.New(), email, firstname, lastname, password);
         return tutor;
+    }
+
+    public void AddCompetence(CompetenceId competenceId)
+    {
+        if (_competenceIds.Contains(competenceId))
+        {
+            throw new DomainException("Competence already added.");
+        }
+
+        _competenceIds.Add(competenceId);
     }
 }

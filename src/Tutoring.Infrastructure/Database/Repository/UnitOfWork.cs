@@ -1,5 +1,4 @@
 ﻿using Tutoring.Application.Abstractions.Database;
-using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Common.Primitives;
 
 namespace Tutoring.Infrastructure.Database.Repository;

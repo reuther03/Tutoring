@@ -12,6 +12,7 @@ public class CompetenceConfiguration : IEntityTypeConfiguration<Competence>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id)
+            .HasConversion(x => x.Value, x => CompetenceId.From(x))
             .ValueGeneratedNever()
             .IsRequired();
 

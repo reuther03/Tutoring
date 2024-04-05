@@ -4,7 +4,7 @@ using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Domain.Competences;
 
-public class Competence : Entity<Guid>
+public class Competence : Entity<CompetenceId>
 {
     public Name DetailedName { get; private set; }
     public Description Description { get; private set; }
@@ -13,7 +13,7 @@ public class Competence : Entity<Guid>
     {
     }
 
-    public Competence(Guid id, Name detailedName, Description description) : base(id)
+    public Competence(CompetenceId id, Name detailedName, Description description) : base(id)
     {
         DetailedName = detailedName;
         Description = description;
@@ -21,7 +21,7 @@ public class Competence : Entity<Guid>
 
     public static Competence Create(Name detailedName, Description description)
     {
-        var competence = new Competence(Guid.NewGuid(), detailedName, description);
+        var competence = new Competence(CompetenceId.New(), detailedName, description);
         return competence;
     }
 }
