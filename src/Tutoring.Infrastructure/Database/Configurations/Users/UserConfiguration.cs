@@ -13,6 +13,7 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasDiscriminator<string>("Type")
             .HasValue<Student>(nameof(Student))
             .HasValue<Tutor>(nameof(Tutor))
+            .HasValue<BackOfficeUser>(nameof(BackOfficeUser))
             .IsComplete(false);
 
         builder.HasKey(x => x.Id);

@@ -15,7 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Users\Dto\" />
+      <Folder Include="Features\CompetencesGroups\Commands\" />
+      <Folder Include="Features\Users\Commands\" />
     </ItemGroup>
 
 </Project>

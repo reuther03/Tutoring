@@ -118,8 +118,8 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("character varying(8)");
+                        .HasMaxLength(21)
+                        .HasColumnType("character varying(21)");
 
                     b.HasKey("Id");
 
@@ -131,6 +131,13 @@ namespace Tutoring.Infrastructure.Database.Migrations
                     b.HasDiscriminator<string>("Type").IsComplete(false).HasValue("User");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Tutoring.Domain.Users.BackOfficeUser", b =>
+                {
+                    b.HasBaseType("Tutoring.Domain.Users.User");
+
+                    b.HasDiscriminator().HasValue("BackOfficeUser");
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Users.Student", b =>

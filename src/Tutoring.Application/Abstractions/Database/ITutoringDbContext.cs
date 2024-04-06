@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Tutoring.Domain.Competences;
 using Tutoring.Domain.Subjects;
 using Tutoring.Domain.Users;
 
@@ -10,4 +11,6 @@ public interface ITutoringDbContext
     DbSet<Student> Students { get; }
     DbSet<Tutor> Tutors { get; }
     DbSet<Subject> Subjects { get; }
+    DbSet<Competence> Competences { get; }
+    DbSet<CompetencesGroup> CompetencesGroups { get; }
 }

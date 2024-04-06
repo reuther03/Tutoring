@@ -12,8 +12,8 @@ using Tutoring.Infrastructure.Database;
 namespace Tutoring.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(TutoringDbContext))]
-    [Migration("20240406103000_Converters")]
-    partial class Converters
+    [Migration("20240406104347_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,8 +121,8 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("character varying(8)");
+                        .HasMaxLength(21)
+                        .HasColumnType("character varying(21)");
 
                     b.HasKey("Id");
 
@@ -134,6 +134,13 @@ namespace Tutoring.Infrastructure.Database.Migrations
                     b.HasDiscriminator<string>("Type").IsComplete(false).HasValue("User");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Tutoring.Domain.Users.BackOfficeUser", b =>
+                {
+                    b.HasBaseType("Tutoring.Domain.Users.User");
+
+                    b.HasDiscriminator().HasValue("BackOfficeUser");
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Users.Student", b =>

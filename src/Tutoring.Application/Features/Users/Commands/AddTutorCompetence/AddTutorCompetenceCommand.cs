@@ -6,7 +6,7 @@ using Tutoring.Common.Abstractions;
 using Tutoring.Common.Extensions;
 using Tutoring.Common.Primitives;
 
-namespace Tutoring.Application.Features.Users.AddTutorCompetence;
+namespace Tutoring.Application.Features.Users.Commands.AddTutorCompetence;
 
 public record AddTutorCompetenceCommand([property: JsonIgnore] Guid CompetenceId) : ICommand<Guid>
 {

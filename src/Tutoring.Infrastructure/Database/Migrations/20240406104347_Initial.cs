@@ -7,11 +7,24 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Tutoring.Infrastructure.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CompetencesGroups",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompetencesGroups", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -22,11 +35,31 @@ namespace Tutoring.Infrastructure.Database.Migrations
                     LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Role = table.Column<int>(type: "integer", nullable: false),
-                    Type = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false)
+                    Type = table.Column<string>(type: "character varying(21)", maxLength: 21, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Competences",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DetailedName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    CompetencesGroupId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Competences", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Competences_CompetencesGroups_CompetencesGroupId",
+                        column: x => x.CompetencesGroupId,
+                        principalTable: "CompetencesGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,6 +121,11 @@ namespace Tutoring.Infrastructure.Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Competences_CompetencesGroupId",
+                table: "Competences",
+                column: "CompetencesGroupId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SubjectCompetenceIds_SubjectId",
                 table: "SubjectCompetenceIds",
                 column: "SubjectId");
@@ -113,10 +151,16 @@ namespace Tutoring.Infrastructure.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Competences");
+
+            migrationBuilder.DropTable(
                 name: "SubjectCompetenceIds");
 
             migrationBuilder.DropTable(
                 name: "TutorCompetenceIds");
+
+            migrationBuilder.DropTable(
+                name: "CompetencesGroups");
 
             migrationBuilder.DropTable(
                 name: "Subjects");

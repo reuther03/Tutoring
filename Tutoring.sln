@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5A75761E-2F46-4766-91E7-515754D91D2D}"
+	ProjectSection(SolutionItems) = preProject
+		src\ToDo.md = src\ToDo.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutoring.Api", "src\Tutoring.Api\Tutoring.Api.csproj", "{33BA7E0D-384C-4C2E-82EE-A44B99C06C0A}"
 EndProject
