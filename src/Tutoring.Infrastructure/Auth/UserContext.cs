@@ -58,9 +58,7 @@ internal sealed class UserContext : IUserContext
         var roleClaim = claims.FindFirst(ClaimTypes.Role)?.Value;
 
         if (Enum.TryParse<Role>(roleClaim, out var role))
-        {
             return role;
-        }
 
         return null; // or handle the case where the role is not a valid enum value
     }

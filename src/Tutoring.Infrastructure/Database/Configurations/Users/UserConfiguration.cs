@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Tutoring.Domain.Users;
-using Tutoring.Domain.Users.ValueObjects;
+using Tutoring.Infrastructure.Database.Converters;
 
 namespace Tutoring.Infrastructure.Database.Configurations.Users;
 
@@ -17,27 +17,27 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id)
-            .HasConversion(x => x.Value, x => UserId.From(x))
+            .HasConversion<UserIdConverter>()
             .ValueGeneratedNever()
             .IsRequired();
 
         builder.Property(x => x.Email)
-            .HasConversion(x => x.Value, x => new Email(x))
+            .HasConversion<EmailConverter>()
             .IsRequired()
             .HasMaxLength(100);
 
         builder.Property(x => x.FirstName)
-            .HasConversion(x => x.Value, x => new Name(x))
+            .HasConversion<NameConverter>()
             .IsRequired()
             .HasMaxLength(50);
 
         builder.Property(x => x.LastName)
-            .HasConversion(x => x.Value, x => new Name(x))
+            .HasConversion<NameConverter>()
             .IsRequired()
             .HasMaxLength(50);
 
         builder.Property(x => x.Password)
-            .HasConversion(x => x.Value, x => new Password(x))
+            .HasConversion<PasswordConverter>()
             .IsRequired()
             .HasMaxLength(200);
 

@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Tutoring.Common.ValueObjects;
 using Tutoring.Domain.Competences;
-using Tutoring.Domain.Users.ValueObjects;
+using Tutoring.Infrastructure.Database.Converters;
 
 namespace Tutoring.Infrastructure.Database.Configurations;
 
@@ -12,17 +11,17 @@ public class CompetenceConfiguration : IEntityTypeConfiguration<Competence>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id)
-            .HasConversion(x => x.Value, x => CompetenceId.From(x))
+            .HasConversion<CompetenceIdConverter>()
             .ValueGeneratedNever()
             .IsRequired();
 
         builder.Property(x => x.DetailedName)
-            .HasConversion(x => x.Value, x => new Name(x))
+            .HasConversion<NameConverter>()
             .IsRequired()
             .HasMaxLength(100);
 
         builder.Property(x => x.Description)
-            .HasConversion(x => x.Value, x => new Description(x))
+            .HasConversion<DescriptionConverter>()
             .IsRequired()
             .HasMaxLength(200);
     }

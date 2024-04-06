@@ -1,15 +1,16 @@
-﻿using Tutoring.Application.Abstractions;
+﻿using System.Text.Json.Serialization;
+using Tutoring.Application.Abstractions;
 using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Common.Abstractions;
+using Tutoring.Common.Extensions;
 using Tutoring.Common.Primitives;
-using Tutoring.Domain.Competences;
 
-namespace Tutoring.Application.Features.Users.Tutors;
+namespace Tutoring.Application.Features.Users.AddTutorCompetence;
 
-public record AddCompetenceCommand(CompetenceId CompetenceId) : ICommand<Guid>
+public record AddTutorCompetenceCommand([property: JsonIgnore] Guid CompetenceId) : ICommand<Guid>
 {
-    internal sealed class Handler : ICommandHandler<AddCompetenceCommand, Guid>
+    internal sealed class Handler : ICommandHandler<AddTutorCompetenceCommand, Guid>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
@@ -22,7 +23,7 @@ public record AddCompetenceCommand(CompetenceId CompetenceId) : ICommand<Guid>
             _userContext = userContext;
         }
 
-        public async Task<Result<Guid>> Handle(AddCompetenceCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(AddTutorCompetenceCommand request, CancellationToken cancellationToken)
         {
             var id = _userContext.UserId;
             if (id is null)
@@ -42,8 +43,8 @@ public record AddCompetenceCommand(CompetenceId CompetenceId) : ICommand<Guid>
 
 
             tutor.AddCompetence(competence.Id);
-            await _unitOfWork.CommitAsync(cancellationToken);
-            return Result.Ok(tutor.Id.Value);
+            var result = await _unitOfWork.CommitAsync(cancellationToken);
+            return result.Map(tutor.Id.Value);
         }
     }
 }

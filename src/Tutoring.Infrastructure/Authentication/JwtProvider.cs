@@ -50,5 +50,5 @@ public static class ClaimConsts
 {
     public const string UserId = "user_id";
     public const string Email = "user_email";
-    public const string Role = "role";
+    public const string Role = "user_role";
 }

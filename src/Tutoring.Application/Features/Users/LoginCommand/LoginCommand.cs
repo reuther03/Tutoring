@@ -1,8 +1,6 @@
 ﻿using Tutoring.Application.Abstractions;
 using Tutoring.Application.Abstractions.Database.Repositories;
-using Tutoring.Application.Features.Users.Dto;
 using Tutoring.Common.Abstractions;
-using Tutoring.Common.Exceptions.Application;
 using Tutoring.Common.Primitives;
 
 namespace Tutoring.Application.Features.Users.LoginCommand;
@@ -22,11 +20,12 @@ public record LoginCommand(string Email, string Password) : ICommand<AccessToken
 
         public async Task<Result<AccessToken>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByEmailAsync(request.Email)
-                ?? throw new ApplicationValidationException("User not found");
+            var user = await _userRepository.GetByEmailAsync(request.Email);
+            if (user is null)
+                return Result.Unauthorized<AccessToken>("Authentication failed");
 
             if (!user.Password.Verify(request.Password))
-                return Result.BadRequest<AccessToken>("Invalid password");
+                return Result.Unauthorized<AccessToken>("Authentication failed");
 
             var token = AccessToken.Create(user, _jwtProvider.Generate(user));
 

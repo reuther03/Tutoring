@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Tutoring.Common.ValueObjects;
 using Tutoring.Domain.Subjects;
+using Tutoring.Infrastructure.Database.Converters;
 
 namespace Tutoring.Infrastructure.Database.Configurations;
 
@@ -26,7 +26,7 @@ internal sealed class SubjectConfiguration : IEntityTypeConfiguration<Subject>
         });
 
         builder.Property(x => x.Description)
-            .HasConversion(x => x.Value, x => new Description(x))
+            .HasConversion<DescriptionConverter>()
             .IsRequired()
             .HasMaxLength(200);
 

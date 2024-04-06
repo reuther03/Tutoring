@@ -14,4 +14,8 @@
         <InternalsVisibleTo Include="Tutoring.Api"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\Users\Dto\" />
+    </ItemGroup>
+
 </Project>

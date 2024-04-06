@@ -1,6 +1,6 @@
 ﻿using Tutoring.Domain.Users;
 
-namespace Tutoring.Application.Features.Users.Dto;
+namespace Tutoring.Application.Abstractions;
 
 public sealed class AccessToken
 {
