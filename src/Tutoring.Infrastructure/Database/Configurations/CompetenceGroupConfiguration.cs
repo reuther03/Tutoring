@@ -29,5 +29,7 @@ public class CompetencesGroupConfiguration : IEntityTypeConfiguration<Competence
             .WithOne()
             .HasForeignKey("CompetencesGroupId")
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(x => x.Name).IsUnique();
     }
 }

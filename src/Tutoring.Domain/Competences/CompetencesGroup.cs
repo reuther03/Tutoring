@@ -28,6 +28,11 @@ public class CompetencesGroup : Entity<Guid>
         return competencesGroup;
     }
 
+    public void AddCompetence(Competence competence)
+    {
+        _competences.Add(competence);
+    }
+
     public void AddCompetences(IEnumerable<Competence> competences)
     {
         _competences.AddRange(competences);

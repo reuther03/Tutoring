@@ -12,5 +12,5 @@ public interface ITutoringDbContext
     DbSet<Tutor> Tutors { get; }
     DbSet<Subject> Subjects { get; }
     DbSet<Competence> Competences { get; }
-    DbSet<CompetencesGroup> CompetencesGroups { get; }
+    DbSet<CompetencesGroup?> CompetencesGroups { get; }
 }

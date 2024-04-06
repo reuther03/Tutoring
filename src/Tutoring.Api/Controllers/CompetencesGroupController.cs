@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
+using Tutoring.Application.Features.CompetencesGroups.Commands;
 using Tutoring.Application.Features.CompetencesGroups.Queries;
 
 namespace Tutoring.Api.Controllers;
@@ -18,6 +19,13 @@ public class CompetencesGroupController : BaseController
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
         var competencesGroup = await _sender.Send(new GetCompetencesGroupQuery(id));
+        return HandleResult(competencesGroup);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddCompetenceGroupWithCompetences([FromBody] AddCompetenceGroupWithCompetences command)
+    {
+        var competencesGroup = await _sender.Send(command);
         return HandleResult(competencesGroup);
     }
 }

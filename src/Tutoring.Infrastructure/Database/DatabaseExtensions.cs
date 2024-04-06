@@ -17,6 +17,7 @@ public static class DatabaseExtensions
         services.AddDbContext<TutoringDbContext>(dbContextOptionsBuilder => { dbContextOptionsBuilder.UseNpgsql(postgresOptions.ConnectionString); });
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+        services.AddScoped<ICompetencesGroupRepository, CompetencesGroupRepository>();
         services.AddScoped<ITutoringDbContext, TutoringDbContext>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();

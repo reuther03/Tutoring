@@ -8,7 +8,7 @@
 ---
 >- GET `/competence-groups` - pobranie listy wszystkich CompetenceGroup (**_paginacja_**)
 ---
->- GET `/competence-groups/{id}` - pobranie konkretnego CompetenceGroup
+>- GET `/competence-groups/{id}` - pobranie konkretnego CompetenceGroup ✅✅✅✅✅✅✅✅
 ---
 >- POST `/competence-groups` - dodanie nowego CompetenceGroup razem z listą Competence do niego
 ---
