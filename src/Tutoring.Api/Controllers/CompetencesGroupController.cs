@@ -28,4 +28,18 @@ public class CompetencesGroupController : BaseController
         var competencesGroup = await _sender.Send(command);
         return HandleResult(competencesGroup);
     }
+
+    // [HttpPost("{CompetenceGroupId:guid}/competences")]
+    // public async Task<IActionResult> AddCompetence([FromRoute] Guid competenceGroupId, [FromBody] AddCompetence command)
+    // {
+    //     var competenceId = await _sender.Send(command with { CompetencesGroupId = competenceGroupId });
+    //     return HandleResult(competenceId);
+    // }
+
+    [HttpPost("{id:guid}/competences")]
+    public async Task<IActionResult> AddCompetence([FromRoute] Guid id, [FromBody] AddCompetence command)
+    {
+        var competence = await _sender.Send(command with { CompetencesGroupId = id });
+        return HandleResult(competence);
+    }
 }

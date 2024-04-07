@@ -10,7 +10,7 @@
 ---
 >- GET `/competence-groups/{id}` - pobranie konkretnego CompetenceGroup ✅✅✅✅✅✅✅✅
 ---
->- POST `/competence-groups` - dodanie nowego CompetenceGroup razem z listą Competence do niego
+>- POST `/competence-groups` - dodanie nowego CompetenceGroup razem z listą Competence do niego ✅CHYBA DZIALA✅
 ---
 >- POST `/competence-groups/{id}/competences` - dodanie nowych Competence do istniejącego CompetenceGroup
 ---
