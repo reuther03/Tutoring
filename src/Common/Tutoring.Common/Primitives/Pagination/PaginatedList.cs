@@ -18,8 +18,10 @@ public class PaginatedList<T>
         Items = items;
     }
 
-    public static PaginatedList<T> Create(int page, int pageSize, int totalCount, List<T> items)
+    public static Result<PaginatedList<T>> Create(int page, int pageSize, int totalCount, List<T> items)
     {
-        return new PaginatedList<T>(page, pageSize, totalCount, items);
+        //todo: tu zmienilem zwracany typ na Result<PaginatedList<T>>
+        var result =  new PaginatedList<T>(page, pageSize, totalCount, items);
+        return Result<PaginatedList<T>>.Ok(result);
     }
 }

@@ -15,10 +15,17 @@ public class CompetencesGroupController : BaseController
         _sender = sender;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    {
+        var competencesGroups = await _sender.Send(new GetAllCompetenceGroupsQuery(page, pageSize));
+        return HandleResult(competencesGroups);
+    }
+
     [HttpGet("{competenceGroupId:guid}")]
     public async Task<IActionResult> GetById([FromRoute] Guid competenceGroupId)
     {
-        var competencesGroup = await _sender.Send(new GetCompetencesGroupQuery(competenceGroupId));
+        var competencesGroup = await _sender.Send(new GetCompetenceGroupQuery(competenceGroupId));
         return HandleResult(competencesGroup);
     }
 

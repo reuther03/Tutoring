@@ -7,9 +7,9 @@ using Tutoring.Common.Primitives;
 
 namespace Tutoring.Application.Features.CompetencesGroups.Queries;
 
-public record GetCompetencesGroupQuery(Guid CompetencesGroupId) : IQuery<CompetencesGroupDto>
+public record GetCompetenceGroupQuery(Guid CompetencesGroupId) : IQuery<CompetenceGroupDto>
 {
-    internal sealed class Handler : IQueryHandler<GetCompetencesGroupQuery, CompetencesGroupDto>
+    internal sealed class Handler : IQueryHandler<GetCompetenceGroupQuery, CompetenceGroupDto>
     {
         private readonly ITutoringDbContext _dbContext;
 
@@ -18,15 +18,15 @@ public record GetCompetencesGroupQuery(Guid CompetencesGroupId) : IQuery<Compete
             _dbContext = dbContext;
         }
 
-        public async Task<Result<CompetencesGroupDto>> Handle(GetCompetencesGroupQuery request, CancellationToken cancellationToken)
+        public async Task<Result<CompetenceGroupDto>> Handle(GetCompetenceGroupQuery request, CancellationToken cancellationToken)
         {
             var competencesGroup = await _dbContext.CompetencesGroups
                 .Include(x => x.Competences)
                 .SingleOrDefaultAsync(x => x.Id == request.CompetencesGroupId, cancellationToken);
 
             return competencesGroup is null
-                ? Result.NotFound<CompetencesGroupDto>("Competences group not found")
-                : Result.Ok(CompetencesGroupDto.AsDto(competencesGroup));
+                ? Result.NotFound<CompetenceGroupDto>("Competences group not found")
+                : Result.Ok(CompetenceGroupDto.AsDto(competencesGroup));
         }
     }
 }

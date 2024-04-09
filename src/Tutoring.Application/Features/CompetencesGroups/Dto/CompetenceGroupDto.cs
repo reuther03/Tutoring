@@ -1,6 +1,6 @@
 ﻿namespace Tutoring.Application.Features.CompetencesGroups.Dto;
 
-public class CompetencesGroupDto
+public class CompetenceGroupDto
 {
     public Guid Id { get; init; }
     public string Name { get; init; } = null!;
@@ -8,9 +8,9 @@ public class CompetencesGroupDto
     public List<CompetenceDto> Competences { get; init; } = null!;
 
 
-    public static CompetencesGroupDto AsDto(Domain.Competences.CompetenceGroup competenceGroup)
+    public static CompetenceGroupDto AsDto(Domain.Competences.CompetenceGroup competenceGroup)
     {
-        return new CompetencesGroupDto
+        return new CompetenceGroupDto
         {
             Id = competenceGroup.Id,
             Name = competenceGroup.Name,
