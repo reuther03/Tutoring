@@ -39,11 +39,11 @@ public class DatabaseInitializer : IHostedService
             return;
         }
 
-        List<CompetencesGroup> competencesGroup =
+        List<CompetenceGroup> competencesGroup =
         [
-            CompetencesGroup.Create(new Name("Matematyka"), new Description("Grupa kompetencji związanych z matematyką.")),
-            CompetencesGroup.Create(new Name("Fizyka"), new Description("Grupa kompetencji związanych z fizyką.")),
-            CompetencesGroup.Create(new Name("Chemia"), new Description("Grupa kompetencji związanych z chemią."))
+            CompetenceGroup.Create(new Name("Matematyka"), new Description("Grupa kompetencji związanych z matematyką.")),
+            CompetenceGroup.Create(new Name("Fizyka"), new Description("Grupa kompetencji związanych z fizyką.")),
+            CompetenceGroup.Create(new Name("Chemia"), new Description("Grupa kompetencji związanych z chemią."))
         ];
         await dbContext.CompetencesGroups.AddRangeAsync(competencesGroup);
         await dbContext.SaveChangesAsync();

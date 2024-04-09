@@ -8,9 +8,5 @@ namespace Tutoring.Application.Abstractions.Database;
 public interface ITutoringDbContext
 {
     DbSet<User> Users { get; }
-    DbSet<Student> Students { get; }
-    DbSet<Tutor> Tutors { get; }
-    DbSet<Subject> Subjects { get; }
-    DbSet<Competence> Competences { get; }
-    DbSet<CompetencesGroup?> CompetencesGroups { get; }
+    DbSet<CompetenceGroup> CompetencesGroups { get; }
 }

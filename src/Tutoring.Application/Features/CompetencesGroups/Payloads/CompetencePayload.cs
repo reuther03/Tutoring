@@ -1,6 +1,6 @@
 ﻿using Tutoring.Domain.Competences;
 
-namespace Tutoring.Application.Features.CompetencesGroups.Commands;
+namespace Tutoring.Application.Features.CompetencesGroups.Payloads;
 
 public class CompetencePayload
 {

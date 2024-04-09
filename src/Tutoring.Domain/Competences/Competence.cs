@@ -13,7 +13,7 @@ public class Competence : Entity<CompetenceId>
     {
     }
 
-    public Competence(CompetenceId id, Name detailedName, Description description) : base(id)
+    private Competence(CompetenceId id, Name detailedName, Description description) : base(id)
     {
         DetailedName = detailedName;
         Description = description;

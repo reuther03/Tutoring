@@ -1,6 +1,6 @@
 ﻿using Tutoring.Domain.Competences;
 
-namespace Tutoring.Application.Features.CompetencesGroups.Queries;
+namespace Tutoring.Application.Features.CompetencesGroups.Dto;
 
 public class CompetenceDto
 {

@@ -9,6 +9,8 @@ public class CompetenceConfiguration : IEntityTypeConfiguration<Competence>
 {
     public void Configure(EntityTypeBuilder<Competence> builder)
     {
+        builder.ToTable("Competences");
+
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id)
             .HasConversion<CompetenceIdConverter>()

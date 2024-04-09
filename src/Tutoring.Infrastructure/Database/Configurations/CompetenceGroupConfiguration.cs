@@ -5,9 +5,9 @@ using Tutoring.Infrastructure.Database.Converters;
 
 namespace Tutoring.Infrastructure.Database.Configurations;
 
-public class CompetencesGroupConfiguration : IEntityTypeConfiguration<CompetencesGroup>
+public class CompetencesGroupConfiguration : IEntityTypeConfiguration<CompetenceGroup>
 {
-    public void Configure(EntityTypeBuilder<CompetencesGroup> builder)
+    public void Configure(EntityTypeBuilder<CompetenceGroup> builder)
     {
         builder.HasKey(x => x.Id);
 
@@ -27,7 +27,7 @@ public class CompetencesGroupConfiguration : IEntityTypeConfiguration<Competence
 
         builder.HasMany(x => x.Competences)
             .WithOne()
-            .HasForeignKey("CompetencesGroupId")
+            .HasForeignKey("CompetenceGroupId")
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(x => x.Name).IsUnique();

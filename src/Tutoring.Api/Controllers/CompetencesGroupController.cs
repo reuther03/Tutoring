@@ -15,31 +15,31 @@ public class CompetencesGroupController : BaseController
         _sender = sender;
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetById([FromRoute] Guid id)
+    [HttpGet("{competenceGroupId:guid}")]
+    public async Task<IActionResult> GetById([FromRoute] Guid competenceGroupId)
     {
-        var competencesGroup = await _sender.Send(new GetCompetencesGroupQuery(id));
+        var competencesGroup = await _sender.Send(new GetCompetencesGroupQuery(competenceGroupId));
         return HandleResult(competencesGroup);
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCompetenceGroupWithCompetences([FromBody] AddCompetenceGroupWithCompetences command)
+    public async Task<IActionResult> AddCompetenceGroupWithCompetences([FromBody] AddCompetenceGroupCommand command)
     {
         var competencesGroup = await _sender.Send(command);
         return HandleResult(competencesGroup);
     }
 
-    // [HttpPost("{CompetenceGroupId:guid}/competences")]
-    // public async Task<IActionResult> AddCompetence([FromRoute] Guid competenceGroupId, [FromBody] AddCompetence command)
-    // {
-    //     var competenceId = await _sender.Send(command with { CompetencesGroupId = competenceGroupId });
-    //     return HandleResult(competenceId);
-    // }
-
-    [HttpPost("{id:guid}/competences")]
-    public async Task<IActionResult> AddCompetence([FromRoute] Guid id, [FromBody] AddCompetence command)
+    [HttpPost("{competenceGroupId:guid}/competences")]
+    public async Task<IActionResult> AddCompetence([FromRoute] Guid competenceGroupId, [FromBody] AddCompetenceCommand command)
     {
-        var competence = await _sender.Send(command with { CompetencesGroupId = id });
+        var competence = await _sender.Send(command with { CompetencesGroupId = competenceGroupId });
         return HandleResult(competence);
+    }
+
+    [HttpDelete("{competenceGroupId:guid}/competences/{competenceId:guid}")]
+    public async Task<IActionResult> DeleteCompetence([FromRoute] Guid competenceGroupId, [FromRoute] Guid competenceId)
+    {
+        var result = await _sender.Send(new DeleteCompetenceCommand(competenceGroupId, competenceId));
+        return HandleResult(result);
     }
 }

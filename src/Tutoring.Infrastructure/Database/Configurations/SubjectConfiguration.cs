@@ -9,6 +9,8 @@ internal sealed class SubjectConfiguration : IEntityTypeConfiguration<Subject>
 {
     public void Configure(EntityTypeBuilder<Subject> builder)
     {
+        builder.ToTable("Subjects");
+
         builder.HasKey(x => x.Id);
 
         builder.OwnsMany(x => x.CompetenceIds, ownedBuilder =>

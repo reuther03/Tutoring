@@ -1,30 +1,62 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Domain.Competences;
+using Tutoring.Domain.Users;
+using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Infrastructure.Database.Repository;
 
-public class CompetencesGroupRepository : ICompetencesGroupRepository
+public class CompetenceGroupRepository : ICompetenceGroupRepository
 {
     private readonly TutoringDbContext _context;
 
-    public CompetencesGroupRepository(TutoringDbContext context)
+    public CompetenceGroupRepository(TutoringDbContext context)
     {
         _context = context;
     }
 
-    public async Task<bool> ExistsWithNameAsync(string name, CancellationToken cancellationToken = default)
+    public async Task<bool> ExistsWithNameAsync(Name name, CancellationToken cancellationToken = default)
         => await _context.CompetencesGroups.AnyAsync(x => x.Name == name, cancellationToken);
 
-    public async Task<CompetencesGroup> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
-        => await _context.CompetencesGroups.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+    public async Task<CompetenceGroup?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        => await _context.CompetencesGroups
+            .Include(x => x.Competences)
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
-    public async Task AddAsync(CompetencesGroup competencesGroup, CancellationToken cancellationToken = default)
-        => await _context.CompetencesGroups.AddAsync(competencesGroup, cancellationToken);
+    public void Add(CompetenceGroup competenceGroup) => _context.CompetencesGroups.Add(competenceGroup);
 
-    public Task UpdateAsync(CompetencesGroup competencesGroup, CancellationToken cancellationToken = default)
+    public void Remove(CompetenceGroup competenceGroup)
+        => _context.CompetencesGroups.Remove(competenceGroup);
+
+    #region Competences
+
+    public Task<Competence?> GetCompetenceByIdAsync(CompetenceId competenceId, CancellationToken cancellationToken = default)
+        => _context.CompetencesGroups
+            .SelectMany(x => x.Competences)
+            .FirstOrDefaultAsync(x => x.Id == competenceId, cancellationToken);
+
+    public async Task<bool> IsCompetenceInUseAsync(CompetenceId competenceId, CancellationToken cancellationToken = default)
     {
-        _context.CompetencesGroups.Update(competencesGroup);
-        return Task.CompletedTask;
+        var isAssignedToTutor = await _context.Users.OfType<Tutor>()
+            .AnyAsync(t => t.CompetenceIds.Any(c => c.Value == competenceId.Value), cancellationToken);
+
+        if (isAssignedToTutor)
+        {
+            return true;
+        }
+
+        var isAssignedToSubject = await _context.Users.OfType<Student>()
+            .Include(x => x.Subjects)
+            .SelectMany(x => x.Subjects)
+            .AnyAsync(s => s.CompetenceIds.Any(c => c.Value == competenceId.Value), cancellationToken);
+
+        return isAssignedToSubject;
     }
+
+    public void RemoveCompetence(Competence competence)
+    {
+        _context.Set<Competence>().Remove(competence);
+    }
+
+    #endregion
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tutoring.Infrastructure.Database;
@@ -11,9 +12,11 @@ using Tutoring.Infrastructure.Database;
 namespace Tutoring.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(TutoringDbContext))]
-    partial class TutoringDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240408134046_CompetenceGroupRenamed")]
+    partial class CompetenceGroupRenamed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +30,7 @@ namespace Tutoring.Infrastructure.Database.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("CompetenceGroupId")
+                    b.Property<Guid?>("CompetencesGroupId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
@@ -42,9 +45,9 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetenceGroupId");
+                    b.HasIndex("CompetencesGroupId");
 
-                    b.ToTable("Competences", (string)null);
+                    b.ToTable("Competence");
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Competences.CompetenceGroup", b =>
@@ -88,7 +91,7 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Subjects", (string)null);
+                    b.ToTable("Subject");
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Users.User", b =>
@@ -161,7 +164,7 @@ namespace Tutoring.Infrastructure.Database.Migrations
                 {
                     b.HasOne("Tutoring.Domain.Competences.CompetenceGroup", null)
                         .WithMany("Competences")
-                        .HasForeignKey("CompetenceGroupId")
+                        .HasForeignKey("CompetencesGroupId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

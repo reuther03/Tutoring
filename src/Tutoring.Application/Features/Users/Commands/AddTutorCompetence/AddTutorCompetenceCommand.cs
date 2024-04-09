@@ -15,12 +15,14 @@ public record AddTutorCompetenceCommand([property: JsonIgnore] Guid CompetenceId
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly IUserContext _userContext;
+        private readonly ICompetenceGroupRepository _competenceGroupRepository;
 
-        public Handler(IUnitOfWork unitOfWork, IUserRepository userRepository, IUserContext userContext)
+        public Handler(IUnitOfWork unitOfWork, IUserRepository userRepository, IUserContext userContext, ICompetenceGroupRepository competenceGroupRepository)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
             _userContext = userContext;
+            _competenceGroupRepository = competenceGroupRepository;
         }
 
         public async Task<Result<Guid>> Handle(AddTutorCompetenceCommand request, CancellationToken cancellationToken)
@@ -35,7 +37,7 @@ public record AddTutorCompetenceCommand([property: JsonIgnore] Guid CompetenceId
                 return Result.NotFound<Guid>("Tutor not found");
 
 
-            var competence = await _userRepository.GetCompetenceByIdAsync(request.CompetenceId, cancellationToken);
+            var competence = await _competenceGroupRepository.GetCompetenceByIdAsync(request.CompetenceId, cancellationToken);
             if (competence is null)
                 return Result.NotFound<Guid>("Competence not found");
 

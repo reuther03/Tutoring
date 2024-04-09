@@ -1,5 +1,4 @@
-﻿using Tutoring.Domain.Competences;
-using Tutoring.Domain.Users;
+﻿using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Application.Abstractions.Database.Repositories;
@@ -14,12 +13,6 @@ public interface IUserRepository
     #region Tutor
 
     Task<Tutor?> GetTutorByIdAsync(UserId id, CancellationToken cancellationToken = default);
-
-    #endregion
-
-    #region Competence
-
-    Task<Competence?> GetCompetenceByIdAsync(CompetenceId id, CancellationToken cancellationToken = default);
 
     #endregion
 }

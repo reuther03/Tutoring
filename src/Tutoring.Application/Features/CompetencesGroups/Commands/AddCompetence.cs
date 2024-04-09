@@ -3,36 +3,36 @@ using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Common.Abstractions;
 using Tutoring.Common.Primitives;
-using Tutoring.Common.ValueObjects;
 using Tutoring.Domain.Competences;
-using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Application.Features.CompetencesGroups.Commands;
 
-public record AddCompetence([property: JsonIgnore] Guid CompetencesGroupId, string Name, string Description) : ICommand<Competence>
+public record AddCompetenceCommand([property: JsonIgnore] Guid CompetencesGroupId, string Name, string Description) : ICommand<Guid>
 {
-    internal sealed class Handler : ICommandHandler<AddCompetence, Competence>
+    internal sealed class Handler : ICommandHandler<AddCompetenceCommand, Guid>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICompetencesGroupRepository _competencesGroupRepository;
+        private readonly ICompetenceGroupRepository _competenceGroupRepository;
 
-        public Handler(IUnitOfWork unitOfWork, ICompetencesGroupRepository competencesGroupRepository)
+        public Handler(IUnitOfWork unitOfWork, ICompetenceGroupRepository competenceGroupRepository)
         {
             _unitOfWork = unitOfWork;
-            _competencesGroupRepository = competencesGroupRepository;
+            _competenceGroupRepository = competenceGroupRepository;
         }
 
-        public async Task<Result<Competence>> Handle(AddCompetence request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(AddCompetenceCommand request, CancellationToken cancellationToken)
         {
-            var competencesGroup = await _competencesGroupRepository.GetByIdAsync(request.CompetencesGroupId, cancellationToken);
+            var competencesGroup = await _competenceGroupRepository.GetByIdAsync(request.CompetencesGroupId, cancellationToken);
+
+            if (competencesGroup is null)
+                return Result<Guid>.BadRequest("Competences group not found");
 
             var competence = Competence.Create(request.Name, request.Description);
 
             competencesGroup.AddCompetence(competence);
 
-            // await _competencesGroupRepository.UpdateAsync(competencesGroup, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
-            return Result<Competence>.Ok(competence);
+            return Result.Ok(competence.Id.Value);
         }
     }
 }

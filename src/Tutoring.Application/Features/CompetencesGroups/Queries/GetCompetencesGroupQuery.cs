@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tutoring.Application.Abstractions.Database;
+using Tutoring.Application.Features.CompetencesGroups.Dto;
 using Tutoring.Common.Abstractions;
 using Tutoring.Common.Exceptions.Application;
 using Tutoring.Common.Primitives;
 
 namespace Tutoring.Application.Features.CompetencesGroups.Queries;
 
-public record GetCompetencesGroupQuery(Guid CompetencesGroupId) : IQuery<Result<CompetencesGroupDto>>
+public record GetCompetencesGroupQuery(Guid CompetencesGroupId) : IQuery<CompetencesGroupDto>
 {
-    internal sealed class Handler : IQueryHandler<GetCompetencesGroupQuery, Result<CompetencesGroupDto>>
+    internal sealed class Handler : IQueryHandler<GetCompetencesGroupQuery, CompetencesGroupDto>
     {
         private readonly ITutoringDbContext _dbContext;
 
@@ -23,10 +24,9 @@ public record GetCompetencesGroupQuery(Guid CompetencesGroupId) : IQuery<Result<
                 .Include(x => x.Competences)
                 .SingleOrDefaultAsync(x => x.Id == request.CompetencesGroupId, cancellationToken);
 
-            if (competencesGroup is null)
-                throw new ApplicationValidationException("Competences group not found");
-
-            return Result<CompetencesGroupDto>.Ok(CompetencesGroupDto.AsDto(competencesGroup));
+            return competencesGroup is null
+                ? Result.NotFound<CompetencesGroupDto>("Competences group not found")
+                : Result.Ok(CompetencesGroupDto.AsDto(competencesGroup));
         }
     }
 }
