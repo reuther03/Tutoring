@@ -2,14 +2,15 @@
 using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Common.Abstractions;
+using Tutoring.Common.Extensions;
 using Tutoring.Common.Primitives;
 using Tutoring.Domain.Competences;
 
 namespace Tutoring.Application.Features.CompetencesGroups.Commands;
 
-public record DeleteCompetenceCommand(Guid CompetenceGroupId, Guid CompetenceId) : ICommand
+public record DeleteCompetenceCommand(Guid CompetenceGroupId, Guid CompetenceId) : ICommand<Unit>
 {
-    internal sealed class Handler : ICommandHandler<DeleteCompetenceCommand>
+    internal sealed class Handler : ICommandHandler<DeleteCompetenceCommand, Unit>
     {
         private readonly ICompetenceGroupRepository _competenceGroupRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -20,7 +21,7 @@ public record DeleteCompetenceCommand(Guid CompetenceGroupId, Guid CompetenceId)
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result> Handle(DeleteCompetenceCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Unit>> Handle(DeleteCompetenceCommand request, CancellationToken cancellationToken)
         {
             var competenceGroup = await _competenceGroupRepository.GetByIdAsync(request.CompetenceGroupId, cancellationToken);
             if (competenceGroup is null)
@@ -38,7 +39,7 @@ public record DeleteCompetenceCommand(Guid CompetenceGroupId, Guid CompetenceId)
 
             _competenceGroupRepository.RemoveCompetence(competence);
             var result = await _unitOfWork.CommitAsync(cancellationToken);
-            return result;
+            return result.Map(Unit.Value);
         }
     }
 }
