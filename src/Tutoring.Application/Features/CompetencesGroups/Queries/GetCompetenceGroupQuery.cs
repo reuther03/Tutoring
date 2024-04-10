@@ -2,7 +2,6 @@
 using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Features.CompetencesGroups.Dto;
 using Tutoring.Common.Abstractions;
-using Tutoring.Common.Exceptions.Application;
 using Tutoring.Common.Primitives;
 
 namespace Tutoring.Application.Features.CompetencesGroups.Queries;

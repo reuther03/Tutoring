@@ -23,7 +23,7 @@ public class CompetencesGroupController : BaseController
     }
 
     [HttpGet("{competenceGroupId:guid}")]
-    public async Task<IActionResult> GetById([FromRoute] Guid competenceGroupId)
+    public async Task<IActionResult> GetGroupById([FromRoute] Guid competenceGroupId)
     {
         var competencesGroup = await _sender.Send(new GetCompetenceGroupQuery(competenceGroupId));
         return HandleResult(competencesGroup);
@@ -41,6 +41,13 @@ public class CompetencesGroupController : BaseController
     {
         var competence = await _sender.Send(command with { CompetencesGroupId = competenceGroupId });
         return HandleResult(competence);
+    }
+
+    [HttpDelete("{competenceGroupId:guid}")]
+    public async Task<IActionResult> DeleteCompetenceGroup([FromRoute] Guid competenceGroupId)
+    {
+        var result = await _sender.Send(new DeleteCompetenceGroupCommand(competenceGroupId));
+        return HandleResult(result);
     }
 
     [HttpDelete("{competenceGroupId:guid}/competences/{competenceId:guid}")]

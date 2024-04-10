@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Tutoring.Common.Exceptions.Domain;
+﻿using Tutoring.Common.Exceptions.Domain;
 using Tutoring.Domain.Competences;
 using Tutoring.Domain.Users.ValueObjects;
 
