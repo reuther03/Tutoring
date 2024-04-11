@@ -1,4 +1,5 @@
-﻿using Tutoring.Domain.Subjects;
+﻿using Tutoring.Domain.Competences;
+using Tutoring.Domain.Subjects;
 using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;
 
@@ -19,7 +20,14 @@ public interface IUserRepository
 
     #region Student
 
-    Task<Student?> GetStudentByIdAsync(UserId id, CancellationToken cancellationToken = default);
+    //todo: null na id bo sie swieci a blad wyrzuci wczesnije z controllera
+    Task<Student?> GetStudentByIdAsync(UserId? id, CancellationToken cancellationToken = default);
+
+    #endregion
+
+    #region Subjects
+
+    Task<Competence?> GetCompetenceByIdAsync(CompetenceId competenceId, CancellationToken cancellationToken = default);
 
     #endregion
 }

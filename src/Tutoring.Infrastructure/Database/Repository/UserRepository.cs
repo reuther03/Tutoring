@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tutoring.Application.Abstractions.Database.Repositories;
+using Tutoring.Domain.Competences;
 using Tutoring.Domain.Subjects;
 using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;
@@ -32,14 +33,19 @@ public class UserRepository : IUserRepository
     public async Task<Tutor?> GetTutorByIdAsync(UserId id, CancellationToken cancellationToken = default)
         => await _context.Users.OfType<Tutor>().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
-
-
     #endregion
 
     #region Student
 
     public async Task<Student?> GetStudentByIdAsync(UserId id, CancellationToken cancellationToken = default)
-        => await _context.Users.OfType<Student>().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        => await _context.Users.OfType<Student>()
+            .Include(x => x.Subjects)
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+    public Task<Competence?> GetCompetenceByIdAsync(CompetenceId competenceId, CancellationToken cancellationToken = default)
+        => _context.CompetencesGroups
+            .SelectMany(x => x.Competences)
+            .FirstOrDefaultAsync(x => x.Id == competenceId, cancellationToken);
 
     #endregion
 }

@@ -25,4 +25,9 @@ public class Subject : Entity<Guid>
         var subject = new Subject(Guid.NewGuid(), description);
         return subject;
     }
+
+    public void AddCompetence(Competence competence)
+    {
+        _competenceIds.Add(competence.Id);
+    }
 }

@@ -17,9 +17,21 @@ public class StudentsController : BaseController
 
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> AddSubject(AddSubjectCommand command)
+    public async Task<IActionResult> AddSubject([FromBody] AddSubjectCommand command)
     {
         var result = await _sender.Send(command);
+        return HandleResult(result);
+    }
+
+    [HttpPost("Subjects/{subjectId:guid}/Competences/{competenceId:guid}")]
+    [Authorize]
+    public async Task<IActionResult> AddSubjectsCompetence(
+        [FromRoute] Guid subjectId,
+        [FromRoute] Guid competenceId)
+    {
+        var result = await _sender.Send(new AddSubjectsCompetenceCommand(
+            SubjectId: subjectId,
+            CompetenceId: competenceId));
         return HandleResult(result);
     }
 }
