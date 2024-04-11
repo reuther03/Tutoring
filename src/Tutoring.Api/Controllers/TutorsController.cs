@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
-using Tutoring.Application.Features.Users.Commands.AddTutorCompetence;
+using Tutoring.Application.Features.Users.Commands.TutorCommands.AddTutorCompetence;
 
 namespace Tutoring.Api.Controllers;
 

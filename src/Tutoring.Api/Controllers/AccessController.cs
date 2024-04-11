@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
-using Tutoring.Application.Features.Users.Commands.LoginCommand;
-using Tutoring.Application.Features.Users.Commands.SignUp;
+using Tutoring.Application.Features.Users.Commands.Access.LoginCommand;
+using Tutoring.Application.Features.Users.Commands.Access.SignUp;
 
 namespace Tutoring.Api.Controllers;
 

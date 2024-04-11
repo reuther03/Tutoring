@@ -24,4 +24,9 @@ public sealed class Student : User
         var student = new Student(UserId.New(), email, firstname, lastname, password);
         return student;
     }
+
+    public void AddSubject(Subject subject)
+    {
+        _subjects.Add(subject);
+    }
 }

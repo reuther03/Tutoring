@@ -15,7 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Users\Commands\" />
+      <Folder Include="Features\Users\Commands\Access\" />
+      <Folder Include="Features\Users\Commands\TutorCommands\" />
     </ItemGroup>
 
 </Project>

@@ -12,6 +12,8 @@ internal sealed class SubjectConfiguration : IEntityTypeConfiguration<Subject>
         builder.ToTable("Subjects");
 
         builder.HasKey(x => x.Id);
+        builder.Property(x => x.Id)
+            .ValueGeneratedNever();
 
         builder.OwnsMany(x => x.CompetenceIds, ownedBuilder =>
         {

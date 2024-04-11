@@ -11,7 +11,7 @@ public interface ICommandBase;
 /// <summary>
 /// Marker interface for commands
 /// </summary>
-public interface ICommand : IRequest<Result<Unit>>, ICommandBase;
+public interface ICommand : IRequest<Result>, ICommandBase;
 
 /// <summary>
 /// Marker interface for commands with a response

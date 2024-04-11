@@ -13,7 +13,8 @@ public abstract class BaseController : ControllerBase
         return Ok(new Envelope
         {
             StatusCode = result.StatusCode,
-            Data = new EmptyData()
+            Data = new EmptyData(),
+            Error = result.Message
         });
     }
 
@@ -22,7 +23,8 @@ public abstract class BaseController : ControllerBase
         return Ok(new Envelope
         {
             StatusCode = result.StatusCode,
-            Data = result
+            Data = result,
+            Error = result.Message
         });
     }
 }

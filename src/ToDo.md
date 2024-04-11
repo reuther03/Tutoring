@@ -19,5 +19,5 @@
 ---
 >- PUT `/competence-groups/{id}` - edycja CompetenceGroup razem z listą Competence do niego 
 ---
-  >- DELETE `/competence-groups/{id}` - usunięcie CompetenceGroup (tutaj dodatkowa walidacja, żeby nie można było usunąć CompetenceGroup, który ma przypisane jakieś Competence)
+  >- DELETE `/competence-groups/{id}` - usunięcie CompetenceGroup (tutaj dodatkowa walidacja, żeby nie można było usunąć CompetenceGroup, który ma przypisane jakieś Competence) ✅chyba✅
 ---

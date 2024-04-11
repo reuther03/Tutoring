@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tutoring.Application.Abstractions.Database.Repositories;
+using Tutoring.Domain.Subjects;
 using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;
 
@@ -31,6 +32,14 @@ public class UserRepository : IUserRepository
     public async Task<Tutor?> GetTutorByIdAsync(UserId id, CancellationToken cancellationToken = default)
         => await _context.Users.OfType<Tutor>().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
-}
 
-#endregion
+
+    #endregion
+
+    #region Student
+
+    public async Task<Student?> GetStudentByIdAsync(UserId id, CancellationToken cancellationToken = default)
+        => await _context.Users.OfType<Student>().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+    #endregion
+}

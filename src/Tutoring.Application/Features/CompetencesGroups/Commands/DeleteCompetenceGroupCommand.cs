@@ -7,9 +7,9 @@ using Tutoring.Common.Primitives;
 
 namespace Tutoring.Application.Features.CompetencesGroups.Commands;
 
-public record DeleteCompetenceGroupCommand(Guid CompetenceGroupId) : ICommand<Unit>
+public record DeleteCompetenceGroupCommand(Guid CompetenceGroupId) : ICommand
 {
-    internal sealed class Handler : ICommandHandler<DeleteCompetenceGroupCommand, Unit>
+    internal sealed class Handler : ICommandHandler<DeleteCompetenceGroupCommand>
     {
         private readonly ICompetenceGroupRepository _competenceGroupRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -20,7 +20,7 @@ public record DeleteCompetenceGroupCommand(Guid CompetenceGroupId) : ICommand<Un
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result<Unit>> Handle(DeleteCompetenceGroupCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(DeleteCompetenceGroupCommand request, CancellationToken cancellationToken)
         {
             var competenceGroup = await _competenceGroupRepository.GetByIdAsync(request.CompetenceGroupId, cancellationToken);
 

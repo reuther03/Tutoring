@@ -38,6 +38,7 @@ public class CompetenceGroup : AggregateRoot<Guid>
         _competences.AddRange(competences);
     }
 
+
     public void RemoveCompetence(Competence competence)
     {
         _competences.Remove(competence);

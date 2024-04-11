@@ -3,7 +3,7 @@ using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Common.Abstractions;
 using Tutoring.Common.Primitives;
 
-namespace Tutoring.Application.Features.Users.Commands.LoginCommand;
+namespace Tutoring.Application.Features.Users.Commands.Access.LoginCommand;
 
 public record LoginCommand(string Email, string Password) : ICommand<AccessToken>
 {

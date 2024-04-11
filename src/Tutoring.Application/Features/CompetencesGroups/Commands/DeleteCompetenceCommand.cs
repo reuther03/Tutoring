@@ -8,9 +8,9 @@ using Tutoring.Domain.Competences;
 
 namespace Tutoring.Application.Features.CompetencesGroups.Commands;
 
-public record DeleteCompetenceCommand(Guid CompetenceGroupId, Guid CompetenceId) : ICommand<Unit>
+public record DeleteCompetenceCommand(Guid CompetenceGroupId, Guid CompetenceId) : ICommand
 {
-    internal sealed class Handler : ICommandHandler<DeleteCompetenceCommand, Unit>
+    internal sealed class Handler : ICommandHandler<DeleteCompetenceCommand>
     {
         private readonly ICompetenceGroupRepository _competenceGroupRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -21,7 +21,7 @@ public record DeleteCompetenceCommand(Guid CompetenceGroupId, Guid CompetenceId)
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result<Unit>> Handle(DeleteCompetenceCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(DeleteCompetenceCommand request, CancellationToken cancellationToken)
         {
             var competenceGroup = await _competenceGroupRepository.GetByIdAsync(request.CompetenceGroupId, cancellationToken);
             if (competenceGroup is null)
