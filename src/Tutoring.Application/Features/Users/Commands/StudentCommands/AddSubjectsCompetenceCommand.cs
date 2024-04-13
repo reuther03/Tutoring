@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-using MediatR;
 using Tutoring.Application.Abstractions;
 using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Abstractions.Database.Repositories;

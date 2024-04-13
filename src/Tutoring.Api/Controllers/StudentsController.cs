@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
 using Tutoring.Application.Features.Users.Commands.StudentCommands;
+using Tutoring.Application.Features.Users.Queries;
 
 namespace Tutoring.Api.Controllers;
 
@@ -13,6 +14,15 @@ public class StudentsController : BaseController
     public StudentsController(ISender sender)
     {
         _sender = sender;
+    }
+
+
+    [HttpGet("Subjects/{subjectId:guid}")]
+    [Authorize]
+    public async Task<IActionResult> GetSubject([FromRoute] Guid subjectId)
+    {
+        var result = await _sender.Send(new GetSubjectQuery(SubjectId: subjectId));
+        return HandleResult(result);
     }
 
     [HttpPost]
