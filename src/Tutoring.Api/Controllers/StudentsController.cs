@@ -16,12 +16,20 @@ public class StudentsController : BaseController
         _sender = sender;
     }
 
+    [HttpGet("Subjects")]
+    [Authorize]
+    public async Task<IActionResult> GetSubjects([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    {
+        var result = await _sender.Send(new GetUserSubjectsQuery(Page: page, PageSize: pageSize));
+        return HandleResult(result);
+    }
+
 
     [HttpGet("Subjects/{subjectId:guid}")]
     [Authorize]
     public async Task<IActionResult> GetSubject([FromRoute] Guid subjectId)
     {
-        var result = await _sender.Send(new GetSubjectQuery(SubjectId: subjectId));
+        var result = await _sender.Send(new GetUserSubjectQuery(SubjectId: subjectId));
         return HandleResult(result);
     }
 
