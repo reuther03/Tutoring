@@ -8,6 +8,7 @@ namespace Tutoring.Api.Controllers.Base;
 [Route("[controller]")]
 public abstract class BaseController : ControllerBase
 {
+
     protected IActionResult HandleResult(Result result)
     {
         return Ok(new Envelope

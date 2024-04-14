@@ -50,5 +50,6 @@ public static class ClaimConsts
 {
     public const string UserId = "user_id";
     public const string Email = "user_email";
-    public const string Role = "user_role";
+    //todo: xd wystarczylo zmienic nazwe na role z user_role
+    public const string Role = "role";
 }

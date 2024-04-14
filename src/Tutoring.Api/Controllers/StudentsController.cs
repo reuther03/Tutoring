@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
 using Tutoring.Application.Features.Users.Commands.StudentCommands;
 using Tutoring.Application.Features.Users.Queries;
+using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Api.Controllers;
 
@@ -17,7 +18,7 @@ public class StudentsController : BaseController
     }
 
     [HttpGet("Subjects")]
-    [Authorize]
+    [AuthorizeRoles(Role.Student)]
     public async Task<IActionResult> GetSubjects([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
         var result = await _sender.Send(new GetUserSubjectsQuery(Page: page, PageSize: pageSize));
@@ -26,7 +27,7 @@ public class StudentsController : BaseController
 
 
     [HttpGet("Subjects/{subjectId:guid}")]
-    [Authorize]
+    [AuthorizeRoles(Role.Student)]
     public async Task<IActionResult> GetSubject([FromRoute] Guid subjectId)
     {
         var result = await _sender.Send(new GetUserSubjectQuery(SubjectId: subjectId));
@@ -34,7 +35,7 @@ public class StudentsController : BaseController
     }
 
     [HttpPost]
-    [Authorize]
+    [AuthorizeRoles(Role.Student)]
     public async Task<IActionResult> AddSubject([FromBody] AddSubjectCommand command)
     {
         var result = await _sender.Send(command);
@@ -42,7 +43,7 @@ public class StudentsController : BaseController
     }
 
     [HttpPost("Subjects/{subjectId:guid}/Competences/{competenceId:guid}")]
-    [Authorize]
+    [AuthorizeRoles(Role.Student)]
     public async Task<IActionResult> AddSubjectsCompetence(
         [FromRoute] Guid subjectId,
         [FromRoute] Guid competenceId)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
 using Tutoring.Application.Features.CompetencesGroups.Commands;
 using Tutoring.Application.Features.CompetencesGroups.Queries;
+using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Api.Controllers;
 
@@ -30,6 +31,7 @@ public class CompetencesGroupController : BaseController
     }
 
     [HttpPost]
+    [AuthorizeRoles(Role.BackOfficeUser)]
     public async Task<IActionResult> AddCompetenceGroupWithCompetences([FromBody] AddCompetenceGroupCommand command)
     {
         var competencesGroup = await _sender.Send(command);
@@ -37,13 +39,16 @@ public class CompetencesGroupController : BaseController
     }
 
     [HttpPost("{competenceGroupId:guid}/competences")]
-    public async Task<IActionResult> AddCompetence([FromRoute] Guid competenceGroupId, [FromBody] AddCompetenceCommand command)
+    [AuthorizeRoles(Role.BackOfficeUser)]
+    public async Task<IActionResult> AddCompetence([FromRoute] Guid competenceGroupId,
+        [FromBody] AddCompetenceCommand command)
     {
         var competence = await _sender.Send(command with { CompetencesGroupId = competenceGroupId });
         return HandleResult(competence);
     }
 
     [HttpDelete("{competenceGroupId:guid}")]
+    [AuthorizeRoles(Role.BackOfficeUser)]
     public async Task<IActionResult> DeleteCompetenceGroup([FromRoute] Guid competenceGroupId)
     {
         var result = await _sender.Send(new DeleteCompetenceGroupCommand(competenceGroupId));
@@ -51,6 +56,7 @@ public class CompetencesGroupController : BaseController
     }
 
     [HttpDelete("{competenceGroupId:guid}/competences/{competenceId:guid}")]
+    [AuthorizeRoles(Role.BackOfficeUser)]
     public async Task<IActionResult> DeleteCompetence([FromRoute] Guid competenceGroupId, [FromRoute] Guid competenceId)
     {
         var result = await _sender.Send(new DeleteCompetenceCommand(competenceGroupId, competenceId));
