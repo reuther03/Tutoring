@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tutoring.Application;
+using Tutoring.Application.Behaviores;
 using Tutoring.Infrastructure.Auth;
 using Tutoring.Infrastructure.Database;
 using Tutoring.Infrastructure.Swagger;
@@ -25,6 +26,8 @@ internal static class Extensions
                 typeof(IApplicationAssembly).Assembly,
                 typeof(IInfrastructureAssembly).Assembly
             ]);
+
+            config.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
         });
 
         return services;

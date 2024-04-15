@@ -25,7 +25,6 @@ public class StudentsController : BaseController
         return HandleResult(result);
     }
 
-
     [HttpGet("Subjects/{subjectId:guid}")]
     [AuthorizeRoles(Role.Student)]
     public async Task<IActionResult> GetSubject([FromRoute] Guid subjectId)
