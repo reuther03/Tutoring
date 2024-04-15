@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Domain.Competences;
+using Tutoring.Domain.Subjects;
 using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;
 
@@ -46,5 +47,12 @@ public class UserRepository : IUserRepository
             .SelectMany(x => x.Competences)
             .FirstOrDefaultAsync(x => x.Id == competenceId, cancellationToken);
 
+    public Task<Subject?> GetSubjectByIdAsync(Guid subjectId, CancellationToken cancellationToken = default)
+        => _context.Users.OfType<Student>()
+            .SelectMany(x => x.Subjects)
+            .FirstOrDefaultAsync(x => x.Id == subjectId, cancellationToken);
+
+    public void RemoveSubject(Subject subject)
+        => _context.Set<Subject>().Remove(subject);
     #endregion
 }

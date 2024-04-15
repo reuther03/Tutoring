@@ -1,4 +1,5 @@
 ﻿using Tutoring.Domain.Competences;
+using Tutoring.Domain.Subjects;
 using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;
 
@@ -27,6 +28,8 @@ public interface IUserRepository
     #region Subjects
 
     Task<Competence?> GetCompetenceByIdAsync(CompetenceId competenceId, CancellationToken cancellationToken = default);
+    Task<Subject?> GetSubjectByIdAsync(Guid subjectId, CancellationToken cancellationToken = default);
+    void RemoveSubject(Subject subject);
 
     #endregion
 }
