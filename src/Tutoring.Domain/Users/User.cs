@@ -31,9 +31,8 @@ public abstract class User : AggregateRoot<UserId>
         Role = role;
     }
 
-    public static User AddReview(User user, Review review)
+    public void AddReview(Review review)
     {
-        user._reviews.Add(review);
-        return user;
+        _reviews.Add(review);
     }
 }

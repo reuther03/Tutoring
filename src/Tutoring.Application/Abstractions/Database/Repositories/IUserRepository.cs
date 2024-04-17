@@ -8,7 +8,7 @@ namespace Tutoring.Application.Abstractions.Database.Repositories;
 public interface IUserRepository
 {
     Task<bool> ExistsWithEmailAsync(Email email, CancellationToken cancellationToken = default);
-    Task<User?> GetByIdAsync(UserId id, CancellationToken cancellationToken = default);
+    Task<User?> GetByIdAsync(UserId? id, CancellationToken cancellationToken = default);
     Task<User?> GetByEmailAsync(string email);
     Task AddAsync(User user, CancellationToken cancellationToken = default);
 
@@ -30,6 +30,12 @@ public interface IUserRepository
     Task<Competence?> GetCompetenceByIdAsync(CompetenceId competenceId, CancellationToken cancellationToken = default);
     Task<Subject?> GetSubjectByIdAsync(Guid subjectId, CancellationToken cancellationToken = default);
     void RemoveSubject(Subject subject);
+
+    #endregion
+
+    #region Reviews
+
+
 
     #endregion
 }

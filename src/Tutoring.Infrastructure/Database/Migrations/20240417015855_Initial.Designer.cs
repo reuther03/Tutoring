@@ -12,7 +12,7 @@ using Tutoring.Infrastructure.Database;
 namespace Tutoring.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(TutoringDbContext))]
-    [Migration("20240417004812_Initial")]
+    [Migration("20240417015855_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -80,6 +80,9 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .IsRequired()
