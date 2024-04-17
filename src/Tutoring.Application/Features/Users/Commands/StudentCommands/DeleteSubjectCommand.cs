@@ -1,6 +1,4 @@
-﻿using MediatR;
-using Tutoring.Application.Abstractions;
-using Tutoring.Application.Abstractions.Database;
+﻿using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Common.Abstractions;
 using Tutoring.Common.Extensions;

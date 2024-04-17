@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Tutoring.Common.Abstractions;
 
 namespace Tutoring.Application.Behaviores;
 

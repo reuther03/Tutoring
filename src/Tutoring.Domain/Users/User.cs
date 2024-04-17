@@ -1,15 +1,21 @@
 ﻿using Tutoring.Common.Primitives.Domain;
+using Tutoring.Domain.Reviews;
 using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Domain.Users;
 
 public abstract class User : AggregateRoot<UserId>
 {
+    private readonly List<Review> _reviews = [];
+
     public Email Email { get; private set; }
     public Name FirstName { get; private set; }
     public Name LastName { get; private set; }
     public Password Password { get; private set; }
     public Role Role { get; private set; }
+
+    public IReadOnlyList<Review> Reviews => _reviews.AsReadOnly();
+
 
     protected User()
     {
@@ -23,5 +29,11 @@ public abstract class User : AggregateRoot<UserId>
         LastName = lastName;
         Password = password;
         Role = role;
+    }
+
+    public static User AddReview(User user, Review review)
+    {
+        user._reviews.Add(review);
+        return user;
     }
 }

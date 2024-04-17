@@ -10,4 +10,7 @@
   &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\8.0.2\ref\net8.0\Microsoft.Extensions.Configuration.Binder.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/Environment/InlayHints/GeneralInlayHintsOptions/EnableInlayHints/@EntryValue">False</s:Boolean>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0905be90_002Dde80_002D4af0_002Da145_002D0a50dcacaa22/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Configurations" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;ProjectFolder&gt;085DE67A-393D-41CA-89F4-B114F3B9F7B9/d:Database/d:Configurations&lt;/ProjectFolder&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Chemia/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

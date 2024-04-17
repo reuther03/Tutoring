@@ -12,8 +12,8 @@ using Tutoring.Infrastructure.Database;
 namespace Tutoring.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(TutoringDbContext))]
-    [Migration("20240408134046_CompetenceGroupRenamed")]
-    partial class CompetenceGroupRenamed
+    [Migration("20240417004812_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace Tutoring.Infrastructure.Database.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("CompetencesGroupId")
+                    b.Property<Guid?>("CompetenceGroupId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
@@ -45,9 +45,9 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetencesGroupId");
+                    b.HasIndex("CompetenceGroupId");
 
-                    b.ToTable("Competence");
+                    b.ToTable("Competences", (string)null);
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Competences.CompetenceGroup", b =>
@@ -73,10 +73,34 @@ namespace Tutoring.Infrastructure.Database.Migrations
                     b.ToTable("CompetencesGroups");
                 });
 
+            modelBuilder.Entity("Tutoring.Domain.Reviews.Review", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews", (string)null);
+                });
+
             modelBuilder.Entity("Tutoring.Domain.Subjects.Subject", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
@@ -91,7 +115,7 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Subject");
+                    b.ToTable("Subjects", (string)null);
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Users.User", b =>
@@ -164,7 +188,15 @@ namespace Tutoring.Infrastructure.Database.Migrations
                 {
                     b.HasOne("Tutoring.Domain.Competences.CompetenceGroup", null)
                         .WithMany("Competences")
-                        .HasForeignKey("CompetencesGroupId")
+                        .HasForeignKey("CompetenceGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Tutoring.Domain.Reviews.Review", b =>
+                {
+                    b.HasOne("Tutoring.Domain.Users.User", null)
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -235,6 +267,11 @@ namespace Tutoring.Infrastructure.Database.Migrations
             modelBuilder.Entity("Tutoring.Domain.Competences.CompetenceGroup", b =>
                 {
                     b.Navigation("Competences");
+                });
+
+            modelBuilder.Entity("Tutoring.Domain.Users.User", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Users.Student", b =>

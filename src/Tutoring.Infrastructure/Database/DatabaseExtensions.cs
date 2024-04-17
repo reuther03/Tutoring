@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Abstractions.Database.Repositories;
-using Tutoring.Common.Abstractions;
 using Tutoring.Common.Extensions;
 using Tutoring.Infrastructure.Database.Repository;
 

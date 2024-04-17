@@ -49,15 +49,36 @@ namespace Tutoring.Infrastructure.Database.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     DetailedName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    CompetencesGroupId = table.Column<Guid>(type: "uuid", nullable: true)
+                    CompetenceGroupId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Competences", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Competences_CompetencesGroups_CompetencesGroupId",
-                        column: x => x.CompetencesGroupId,
+                        name: "FK_Competences_CompetencesGroups_CompetenceGroupId",
+                        column: x => x.CompetenceGroupId,
                         principalTable: "CompetencesGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -121,9 +142,20 @@ namespace Tutoring.Infrastructure.Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Competences_CompetencesGroupId",
+                name: "IX_Competences_CompetenceGroupId",
                 table: "Competences",
-                column: "CompetencesGroupId");
+                column: "CompetenceGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompetencesGroups_Name",
+                table: "CompetencesGroups",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_UserId",
+                table: "Reviews",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubjectCompetenceIds_SubjectId",
@@ -152,6 +184,9 @@ namespace Tutoring.Infrastructure.Database.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Competences");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "SubjectCompetenceIds");
