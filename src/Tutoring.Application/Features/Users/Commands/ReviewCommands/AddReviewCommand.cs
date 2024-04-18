@@ -11,9 +11,9 @@ using Tutoring.Domain.Users;
 
 namespace Tutoring.Application.Features.Users.Commands.ReviewCommands;
 
-public record AddReviewCommand(Guid UserId, string Description, int Rating) : ICommand<Guid>
+public record AddReviewCommand(Guid UserId, string Description, int Rating) : IQuery<Guid>
 {
-    internal sealed class Handler : ICommandHandler<AddReviewCommand, Guid>
+    internal sealed class Handler : IQueryHandler<AddReviewCommand, Guid>
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserContext _userContext;

@@ -16,9 +16,17 @@ public class ReviewsController : BaseController
         _sender = sender;
     }
 
+    [HttpGet("me")]
+    [AuthorizeRoles(Role.Student, Role.Tutor)]
+    public async Task<IActionResult> GetMyReviews(int page = 1, int pageSize = 10)
+    {
+        var result = await _sender.Send(new GetMyReviewsQuery(page, pageSize));
+        return HandleResult(result);
+    }
+
     [HttpGet("{userId:guid}")]
-    // [AuthorizeRoles(Role.Student, Role.Tutor)]
-    public async Task<IActionResult> GetUserReviews([FromRoute]Guid userId, int page = 1, int pageSize = 10)
+    [AuthorizeRoles(Role.Student, Role.Tutor)]
+    public async Task<IActionResult> GetUserReviews([FromRoute] Guid userId, int page = 1, int pageSize = 10)
     {
         var result = await _sender.Send(new GetUserReviewsQuery(userId, page, pageSize));
         return HandleResult(result);
