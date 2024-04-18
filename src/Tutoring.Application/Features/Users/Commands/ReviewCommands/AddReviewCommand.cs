@@ -1,6 +1,8 @@
-﻿using Tutoring.Application.Abstractions;
+﻿using System.Text.Json.Serialization;
+using Tutoring.Application.Abstractions;
 using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Abstractions.Database.Repositories;
+using Tutoring.Application.Features.Users.Commands.ReviewCommands;
 using Tutoring.Common.Abstractions;
 using Tutoring.Common.Primitives;
 using Tutoring.Common.ValueObjects;
@@ -26,11 +28,12 @@ public record AddReviewCommand(Guid UserId, string Description, int Rating) : IC
 
         public async Task<Result<Guid>> Handle(AddReviewCommand request, CancellationToken cancellationToken)
         {
-            //todo: check if user is not trying to review himself
-            //current logged  user
             var currentUserId = _userContext.UserId;
-            //user to review
-            var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
+            var userId = request.UserId;
+            if (currentUserId == Domain.Users.UserId.From(userId))
+                return Result.BadRequest<Guid>("You can't review yourself.");
+
+            var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
             if (user is null)
                 return Result.NotFound<Guid>("User not found.");
 
