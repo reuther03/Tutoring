@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
 using Tutoring.Application.Features.Users.Commands.StudentCommands;
-using Tutoring.Application.Features.Users.Queries;
 using Tutoring.Application.Features.Users.Queries.Subjects;
 using Tutoring.Domain.Users.ValueObjects;
 

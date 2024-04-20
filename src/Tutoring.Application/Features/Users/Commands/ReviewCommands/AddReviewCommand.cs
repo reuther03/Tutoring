@@ -1,13 +1,10 @@
-﻿using System.Text.Json.Serialization;
-using Tutoring.Application.Abstractions;
+﻿using Tutoring.Application.Abstractions;
 using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Abstractions.Database.Repositories;
-using Tutoring.Application.Features.Users.Commands.ReviewCommands;
 using Tutoring.Common.Abstractions;
 using Tutoring.Common.Primitives;
 using Tutoring.Common.ValueObjects;
 using Tutoring.Domain.Reviews;
-using Tutoring.Domain.Users;
 
 namespace Tutoring.Application.Features.Users.Commands.ReviewCommands;
 

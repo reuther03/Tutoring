@@ -1,5 +1,4 @@
 ﻿using Tutoring.Domain.Reviews;
-using Tutoring.Domain.Users;
 
 namespace Tutoring.Application.Features.Users.Dto;
 
