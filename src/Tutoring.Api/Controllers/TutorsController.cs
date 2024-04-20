@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
 using Tutoring.Application.Features.Users.Commands.TutorCommands.AddTutorCompetence;
+using Tutoring.Application.Features.Users.Queries.Tutors;
 using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Api.Controllers;
@@ -13,6 +14,15 @@ public class TutorsController : BaseController
     public TutorsController(ISender sender)
     {
         _sender = sender;
+    }
+
+    [HttpGet]
+    [AuthorizeAllRoles]
+    public async Task<IActionResult> GetTutors([FromQuery] GetTutorsQuery query,
+        CancellationToken cancellationToken = default)
+    {
+        var result = await _sender.Send(query, cancellationToken);
+        return HandleResult(result);
     }
 
     [HttpPost("competences/{competenceId:guid}")]

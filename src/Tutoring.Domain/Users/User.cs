@@ -13,6 +13,7 @@ public abstract class User : AggregateRoot<UserId>
     public Name LastName { get; private set; }
     public Password Password { get; private set; }
     public Role Role { get; private set; }
+    public double AverageRating => _reviews.Count != 0 ? _reviews.Average(x => x.Rating) : 0;
 
     public IReadOnlyList<Review> Reviews => _reviews.AsReadOnly();
 

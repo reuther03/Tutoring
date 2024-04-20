@@ -5,13 +5,12 @@ using Tutoring.Application.Features.Users.Dto;
 using Tutoring.Common.Abstractions;
 using Tutoring.Common.Primitives;
 using Tutoring.Common.Primitives.Pagination;
-using Tutoring.Domain.Users;
 
-namespace Tutoring.Application.Features.Users.Queries;
+namespace Tutoring.Application.Features.Users.Queries.Reviews;
 
-public record GetUserSubjectsQuery(int Page = 1, int PageSize = 10) : IQuery<PaginatedList<SubjectDto>>
+public record GetCurrentUserReviewsQuery(int Page = 1, int PageSize = 10) : IQuery<PaginatedList<ReviewDto>>
 {
-    internal sealed class Handler : IQueryHandler<GetUserSubjectsQuery, PaginatedList<SubjectDto>>
+    internal sealed class Handler : IQueryHandler<GetCurrentUserReviewsQuery, PaginatedList<ReviewDto>>
     {
         private readonly ITutoringDbContext _dbContext;
         private readonly IUserContext _userContext;
@@ -22,27 +21,25 @@ public record GetUserSubjectsQuery(int Page = 1, int PageSize = 10) : IQuery<Pag
             _userContext = userContext;
         }
 
-        public async Task<Result<PaginatedList<SubjectDto>>> Handle(GetUserSubjectsQuery request,
+        public async Task<Result<PaginatedList<ReviewDto>>> Handle(GetCurrentUserReviewsQuery request,
             CancellationToken cancellationToken)
         {
             var userId = _userContext.UserId;
-            var user = await _dbContext.Users.OfType<Student>()
-                .Include(x => x.Subjects)
+            var user = await _dbContext.Users
+                .Include(x => x.Reviews)
                 .FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
 
             if (user is null)
-                return Result.NotFound<PaginatedList<SubjectDto>>("User not found");
+                return Result.NotFound<PaginatedList<ReviewDto>>("User not found");
 
-            var subjects = user.Subjects
+            var reviews = user.Reviews
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
-                // .Select(x => SubjectDto.AsDto(x))
-                .Select(SubjectDto.AsDto)
+                .Select(ReviewDto.AsDto)
                 .ToList();
 
-            var totalSubjects = user.Subjects.Count;
-
-            return PaginatedList<SubjectDto>.Create(request.Page, request.PageSize, totalSubjects, subjects);
+            var totalReviews = user.Reviews.Count;
+            return PaginatedList<ReviewDto>.Create(request.Page, request.PageSize, totalReviews, reviews);
         }
     }
 }

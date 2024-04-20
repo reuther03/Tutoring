@@ -20,7 +20,7 @@ public class ReviewsController : BaseController
     [AuthorizeRoles(Role.Student, Role.Tutor)]
     public async Task<IActionResult> GetMyReviews(int page = 1, int pageSize = 10)
     {
-        var result = await _sender.Send(new GetMyReviewsQuery(page, pageSize));
+        var result = await _sender.Send(new GetCurrentUserReviewsQuery(page, pageSize));
         return HandleResult(result);
     }
 

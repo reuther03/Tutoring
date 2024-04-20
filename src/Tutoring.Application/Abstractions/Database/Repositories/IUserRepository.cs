@@ -35,7 +35,5 @@ public interface IUserRepository
 
     #region Reviews
 
-
-
     #endregion
 }
