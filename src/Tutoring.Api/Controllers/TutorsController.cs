@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
-using Tutoring.Application.Features.Users.Commands.TutorCommands.AddTutorCompetence;
+using Tutoring.Application.Features.Users.Commands.TutorCommands;
 using Tutoring.Application.Features.Users.Queries.Tutors;
 using Tutoring.Domain.Users.ValueObjects;
 

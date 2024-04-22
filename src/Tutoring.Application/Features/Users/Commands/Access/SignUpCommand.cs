@@ -7,7 +7,7 @@ using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;
 using UserPassword = Tutoring.Domain.Users.ValueObjects.Password;
 
-namespace Tutoring.Application.Features.Users.Commands.Access.SignUp;
+namespace Tutoring.Application.Features.Users.Commands.Access;
 
 public record SignUpCommand(string Email, string FirstName, string LastName, string Password, Role Role) : ICommand<Guid>
 {
