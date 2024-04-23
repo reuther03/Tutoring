@@ -8,9 +8,9 @@ using Tutoring.Domain.Users;
 
 namespace Tutoring.Application.Features.Users.Queries.Tutors;
 
-public record GetTutorsQuery(int Page = 1, int PageSize = 10) : IQuery<PaginatedList<TutorsDto>>
+public record GetAllTutorsQuery(int Page = 1, int PageSize = 10) : IQuery<PaginatedList<TutorDto>>
 {
-    internal sealed class Handler : IQueryHandler<GetTutorsQuery, PaginatedList<TutorsDto>>
+    internal sealed class Handler : IQueryHandler<GetAllTutorsQuery, PaginatedList<TutorDto>>
     {
         private readonly ITutoringDbContext _dbContext;
 
@@ -19,18 +19,18 @@ public record GetTutorsQuery(int Page = 1, int PageSize = 10) : IQuery<Paginated
             _dbContext = dbContext;
         }
 
-        public async Task<Result<PaginatedList<TutorsDto>>> Handle(GetTutorsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<PaginatedList<TutorDto>>> Handle(GetAllTutorsQuery request, CancellationToken cancellationToken)
         {
             var tutors = _dbContext.Users.OfType<Tutor>()
                 .Include(x => x.Reviews)
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize).AsEnumerable()
-                .Select(TutorsDto.AsDto)
+                .Select(TutorDto.AsDto)
                 .ToList();
 
             var totalTutors = await _dbContext.Users.OfType<Tutor>().CountAsync(cancellationToken);
 
-            return PaginatedList<TutorsDto>.Create(request.Page, request.PageSize, totalTutors, tutors);
+            return PaginatedList<TutorDto>.Create(request.Page, request.PageSize, totalTutors, tutors);
         }
     }
 }

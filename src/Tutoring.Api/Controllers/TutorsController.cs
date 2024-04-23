@@ -18,10 +18,10 @@ public class TutorsController : BaseController
 
     [HttpGet]
     [AuthorizeAllRoles]
-    public async Task<IActionResult> GetTutors([FromQuery] GetTutorQuery query,
+    public async Task<IActionResult> GetTutors([FromQuery] GetTutorDetailsQuery detailsQuery,
         CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(query, cancellationToken);
+        var result = await _sender.Send(detailsQuery, cancellationToken);
         return HandleResult(result);
     }
 
@@ -30,7 +30,7 @@ public class TutorsController : BaseController
     public async Task<IActionResult> GetTutor([FromRoute] Guid userId,
         CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new GetTutorQuery(userId), cancellationToken);
+        var result = await _sender.Send(new GetTutorDetailsQuery(userId), cancellationToken);
         return HandleResult(result);
     }
 

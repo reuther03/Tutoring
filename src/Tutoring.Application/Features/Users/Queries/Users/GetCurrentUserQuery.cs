@@ -18,7 +18,7 @@ public record GetCurrentUserQuery : IQuery<UserDto>
         private readonly IUserContext _userContext;
         private readonly ITutoringDbContext _dbContext;
 
-        public Handler(IUserContext userContext, IUserRepository userRepository, ITutoringDbContext dbContext)
+        public Handler(IUserContext userContext, ITutoringDbContext dbContext)
         {
             _userContext = userContext;
             _dbContext = dbContext;
@@ -26,30 +26,15 @@ public record GetCurrentUserQuery : IQuery<UserDto>
 
         public async Task<Result<UserDto>> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
         {
-            //todo: myslalem na podejsciem z elseif(functional)
-
             var userId = _userContext.UserId;
-            var userRole = _userContext.Role;
-            if (userRole == Role.Student)
-            {
-                var student = await _dbContext.Users.OfType<Student>()
-                    .Include(x => x.Subjects)
-                    .Include(x => x.Reviews)
-                    .FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
 
-                return student is null
-                    ? Result.NotFound<UserDto>("Student not found")
-                    : Result.Ok(UserDto.AsStudentDto(student));
-            }
-
-            var tutor = await _dbContext.Users.OfType<Tutor>()
-                .Include(x => x.CompetenceIds)
+            var user = await _dbContext.Users
                 .Include(x => x.Reviews)
                 .FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
 
-            return tutor is null
-                ? Result.NotFound<UserDto>("Tutor not found")
-                : Result.Ok(UserDto.AsTutorDto(tutor));
+            return user is null
+                ? Result.NotFound<UserDto>("Student not found")
+                : Result.Ok(UserDto.AsDto(user));
         }
     }
 }

@@ -7,9 +7,9 @@ using Tutoring.Domain.Users;
 
 namespace Tutoring.Application.Features.Users.Queries.Tutors;
 
-public record GetTutorQuery(Guid UserId) : IQuery<TutorDto>
+public record GetTutorDetailsQuery(Guid UserId) : IQuery<TutorDetailsDto>
 {
-    internal sealed class Handler : IQueryHandler<GetTutorQuery, TutorDto>
+    internal sealed class Handler : IQueryHandler<GetTutorDetailsQuery, TutorDetailsDto>
     {
         private readonly ITutoringDbContext _dbContext;
 
@@ -18,7 +18,7 @@ public record GetTutorQuery(Guid UserId) : IQuery<TutorDto>
             _dbContext = dbContext;
         }
 
-        public async Task<Result<TutorDto>> Handle(GetTutorQuery request, CancellationToken cancellationToken)
+        public async Task<Result<TutorDetailsDto>> Handle(GetTutorDetailsQuery request, CancellationToken cancellationToken)
         {
             var tutor = await _dbContext.Users.OfType<Tutor>()
                 .Include(t => t.CompetenceIds)
@@ -26,8 +26,8 @@ public record GetTutorQuery(Guid UserId) : IQuery<TutorDto>
                 .FirstOrDefaultAsync(x => x.Id == Domain.Users.UserId.From(request.UserId), cancellationToken);
 
             return tutor is null
-                ? Result.NotFound<TutorDto>("Tutor not found")
-                : Result.Ok(TutorDto.AsDto(tutor));
+                ? Result.NotFound<TutorDetailsDto>("Tutor not found")
+                : Result.Ok(TutorDetailsDto.AsDto(tutor));
         }
     }
 }
