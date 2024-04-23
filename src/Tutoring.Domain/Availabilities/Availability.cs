@@ -8,24 +8,22 @@ public class Availability : Entity<Guid>
     public TimeOnly From { get; private set; }
     public TimeOnly To { get; private set; }
     public DayOfWeek Day { get; private set; }
-    public UserId UserId { get; private set; }
 
     private Availability()
     {
     }
 
-    private Availability(Guid id, TimeOnly from, TimeOnly to, DayOfWeek day, UserId userId)
+    private Availability(Guid id, TimeOnly from, TimeOnly to, DayOfWeek day)
         : base(id)
     {
         From = from;
         To = to;
         Day = day;
-        UserId = userId;
     }
 
-    public static Availability Create(TimeOnly from, TimeOnly to, DayOfWeek day, UserId userId)
+    public static Availability Create(TimeOnly from, TimeOnly to, DayOfWeek day)
     {
-        var availability = new Availability(Guid.NewGuid(), from, to, day, userId);
+        var availability = new Availability(Guid.NewGuid(), from, to, day);
         return availability;
     }
 }

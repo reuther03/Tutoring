@@ -51,5 +51,10 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne()
             .HasForeignKey("UserId")
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(x => x.Availabilities)
+            .WithOne()
+            .HasForeignKey("UserId")
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

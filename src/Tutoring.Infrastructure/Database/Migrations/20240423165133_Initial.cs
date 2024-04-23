@@ -63,6 +63,27 @@ namespace Tutoring.Infrastructure.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Availability",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    From = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    To = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    Day = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Availability", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Availability_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reviews",
                 columns: table => new
                 {
@@ -143,6 +164,11 @@ namespace Tutoring.Infrastructure.Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Availability_UserId",
+                table: "Availability",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Competences_CompetenceGroupId",
                 table: "Competences",
                 column: "CompetenceGroupId");
@@ -183,6 +209,9 @@ namespace Tutoring.Infrastructure.Database.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Availability");
+
             migrationBuilder.DropTable(
                 name: "Competences");
 

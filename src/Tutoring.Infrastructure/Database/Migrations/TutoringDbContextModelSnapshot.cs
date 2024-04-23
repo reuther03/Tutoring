@@ -22,6 +22,30 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Tutoring.Domain.Availabilities.Availability", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("integer");
+
+                    b.Property<TimeOnly>("From")
+                        .HasColumnType("time without time zone");
+
+                    b.Property<TimeOnly>("To")
+                        .HasColumnType("time without time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Availability");
+                });
+
             modelBuilder.Entity("Tutoring.Domain.Competences.Competence", b =>
                 {
                     b.Property<Guid>("Id")
@@ -184,6 +208,15 @@ namespace Tutoring.Infrastructure.Database.Migrations
                     b.HasDiscriminator().HasValue("Tutor");
                 });
 
+            modelBuilder.Entity("Tutoring.Domain.Availabilities.Availability", b =>
+                {
+                    b.HasOne("Tutoring.Domain.Users.User", null)
+                        .WithMany("Availabilities")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Tutoring.Domain.Competences.Competence", b =>
                 {
                     b.HasOne("Tutoring.Domain.Competences.CompetenceGroup", null)
@@ -271,6 +304,8 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
             modelBuilder.Entity("Tutoring.Domain.Users.User", b =>
                 {
+                    b.Navigation("Availabilities");
+
                     b.Navigation("Reviews");
                 });
 
