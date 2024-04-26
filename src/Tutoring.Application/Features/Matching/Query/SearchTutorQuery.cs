@@ -16,11 +16,13 @@ public record SearchTutorQuery(int Page = 1, int PageSize = 10) : IQuery<Paginat
     {
         private readonly ITutoringDbContext _dbContext;
         private readonly IUserContext _userContext;
+        // private IEnumerable<Tutor> _enumerable;
 
         public Handler(ITutoringDbContext dbContext, IUserContext userContext)
         {
             _dbContext = dbContext;
             _userContext = userContext;
+            // _enumerable = enumerable;
         }
 
 
@@ -30,6 +32,9 @@ public record SearchTutorQuery(int Page = 1, int PageSize = 10) : IQuery<Paginat
             var user = await _dbContext.Users.OfType<Student>()
                 .Include(x => x.Subjects)
                 .FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
+
+            if (user is null)
+                return Result.NotFound<PaginatedList<TutorDetailsDto>>("User not found");
 
             var subjects = user.Subjects.Select(x => x.Id).ToList();
 
@@ -44,6 +49,7 @@ public record SearchTutorQuery(int Page = 1, int PageSize = 10) : IQuery<Paginat
 
             if (tutors.Count != 0)
             {
+                // _enumerable =
                 tutors.Where(x => x.CompetenceIds.Any(y => subjects.Contains(y))).ToList();
             }
 

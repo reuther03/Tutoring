@@ -20,4 +20,11 @@ public class MatchingController : BaseController
         var result = await _sender.Send(query);
         return HandleResult(result);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> GetFilteredTutors([FromBody] GetFilteredTutorsQuery query)
+    {
+        var result = await _sender.Send(query);
+        return HandleResult(result);
+    }
 }
