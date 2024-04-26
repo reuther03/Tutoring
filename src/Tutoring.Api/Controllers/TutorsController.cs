@@ -42,4 +42,13 @@ public class TutorsController : BaseController
         var result = await _sender.Send(new AddTutorCompetenceCommand(competenceId), cancellationToken);
         return HandleResult(result);
     }
+
+    [HttpPost("availabilities")]
+    [AuthorizeRoles(Role.Tutor)]
+    public async Task<IActionResult> AddAvailabilityToTutor([FromBody] AddTutorAvailabilityCommand command,
+        CancellationToken cancellationToken = default)
+    {
+        var result = await _sender.Send(command, cancellationToken);
+        return HandleResult(result);
+    }
 }

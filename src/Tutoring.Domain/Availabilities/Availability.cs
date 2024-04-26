@@ -1,4 +1,5 @@
-﻿using Tutoring.Common.Primitives.Domain;
+﻿using Tutoring.Common.Exceptions.Domain;
+using Tutoring.Common.Primitives.Domain;
 using Tutoring.Domain.Users;
 
 namespace Tutoring.Domain.Availabilities;
@@ -23,6 +24,10 @@ public class Availability : Entity<Guid>
 
     public static Availability Create(TimeOnly from, TimeOnly to, DayOfWeek day)
     {
+        if (from >= to)
+        {
+            throw new DomainException("From must be before To");
+        }
         var availability = new Availability(Guid.NewGuid(), from, to, day);
         return availability;
     }
