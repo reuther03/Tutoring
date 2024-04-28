@@ -15,7 +15,7 @@ public class MatchingController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> SearchTutors([FromQuery] SearchTutorQuery query)
+    public async Task<IActionResult> SearchTutors([FromQuery] GetFilteredTutorsBySubjects query)
     {
         var result = await _sender.Send(query);
         return HandleResult(result);

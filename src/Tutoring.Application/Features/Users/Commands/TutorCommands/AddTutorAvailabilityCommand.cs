@@ -4,11 +4,12 @@ using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Common.Abstractions;
 using Tutoring.Common.Extensions;
 using Tutoring.Common.Primitives;
+using Tutoring.Common.ValueObjects;
 using Tutoring.Domain.Availabilities;
 
 namespace Tutoring.Application.Features.Users.Commands.TutorCommands;
 
-public record AddTutorAvailabilityCommand(TimeOnly From, TimeOnly To, DayOfWeek Day) : ICommand<Guid>
+public record AddTutorAvailabilityCommand(TimeOnly From, TimeOnly To, Day Day) : ICommand<Guid>
 {
     internal sealed class Handler : ICommandHandler<AddTutorAvailabilityCommand, Guid>
     {

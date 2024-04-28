@@ -11,5 +11,8 @@
 
 
 
+dodac kolejne filtry do wyszukiwania tutorow
+> - sprawdzi dzialanie avalibility 
+
 
 > - PUT `/competence-groups/{id}` - edycja CompetenceGroup razem z listą Competence do niego 

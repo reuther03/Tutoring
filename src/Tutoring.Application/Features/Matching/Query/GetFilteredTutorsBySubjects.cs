@@ -3,6 +3,7 @@ using Tutoring.Application.Abstractions;
 using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Features.Users.Dto;
 using Tutoring.Common.Abstractions;
+using Tutoring.Common.Extensions;
 using Tutoring.Common.Primitives;
 using Tutoring.Common.Primitives.Pagination;
 using Tutoring.Domain.Competences;
@@ -10,9 +11,9 @@ using Tutoring.Domain.Users;
 
 namespace Tutoring.Application.Features.Matching.Query;
 
-public record SearchTutorQuery(int Page = 1, int PageSize = 10) : IQuery<PaginatedList<TutorDetailsDto>>
+public record GetFilteredTutorsBySubjects(int Page = 1, int PageSize = 10) : IQuery<PaginatedList<TutorDetailsDto>>
 {
-    internal sealed class Handler : IQueryHandler<SearchTutorQuery, PaginatedList<TutorDetailsDto>>
+    internal sealed class Handler : IQueryHandler<GetFilteredTutorsBySubjects, PaginatedList<TutorDetailsDto>>
     {
         private readonly ITutoringDbContext _dbContext;
         private readonly IUserContext _userContext;
@@ -22,11 +23,10 @@ public record SearchTutorQuery(int Page = 1, int PageSize = 10) : IQuery<Paginat
         {
             _dbContext = dbContext;
             _userContext = userContext;
-            // _enumerable = enumerable;
         }
 
 
-        public async Task<Result<PaginatedList<TutorDetailsDto>>> Handle(SearchTutorQuery request, CancellationToken cancellationToken)
+        public async Task<Result<PaginatedList<TutorDetailsDto>>> Handle(GetFilteredTutorsBySubjects request, CancellationToken cancellationToken)
         {
             var userId = _userContext.UserId;
             var user = await _dbContext.Users.OfType<Student>()
@@ -36,22 +36,20 @@ public record SearchTutorQuery(int Page = 1, int PageSize = 10) : IQuery<Paginat
             if (user is null)
                 return Result.NotFound<PaginatedList<TutorDetailsDto>>("User not found");
 
-            var subjects = user.Subjects.Select(x => x.Id).ToList();
+            var competenceIds = user.Subjects
+                .SelectMany(x => x.CompetenceIds)
+                .Select(x => x.Value)
+                .Distinct().ToList();
+
+            var query = _dbContext.Users.OfType<Tutor>()
+                .Where(x => x.CompetenceIds.Any(y => competenceIds.Contains(y.Value)));
 
 
-            var tutors = await _dbContext.Users.OfType<Tutor>()
-                .Include(x => x.CompetenceIds)
+            var tutors = await query
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
-                .Where(x => x.CompetenceIds.Any())
-                .AsQueryable()
                 .ToListAsync(cancellationToken);
 
-            if (tutors.Count != 0)
-            {
-                // _enumerable =
-                tutors.Where(x => x.CompetenceIds.Any(y => subjects.Contains(y))).ToList();
-            }
 
             var totalTutors = await _dbContext.Users.OfType<Tutor>().CountAsync(cancellationToken);
 

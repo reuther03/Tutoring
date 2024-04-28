@@ -14,8 +14,4 @@
         <InternalsVisibleTo Include="Tutoring.Api"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Features\Matching\Commands\" />
-    </ItemGroup>
-
 </Project>
