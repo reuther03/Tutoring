@@ -3,13 +3,11 @@ using Tutoring.Application.Abstractions;
 using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Features.Users.Dto;
 using Tutoring.Common.Abstractions;
-using Tutoring.Common.Extensions;
 using Tutoring.Common.Primitives;
 using Tutoring.Common.Primitives.Pagination;
-using Tutoring.Domain.Competences;
 using Tutoring.Domain.Users;
 
-namespace Tutoring.Application.Features.Matching.Query;
+namespace Tutoring.Application.Features.Matching.Queries;
 
 public record GetFilteredTutorsBySubjects(int Page = 1, int PageSize = 10) : IQuery<PaginatedList<TutorDetailsDto>>
 {
@@ -17,7 +15,6 @@ public record GetFilteredTutorsBySubjects(int Page = 1, int PageSize = 10) : IQu
     {
         private readonly ITutoringDbContext _dbContext;
         private readonly IUserContext _userContext;
-        // private IEnumerable<Tutor> _enumerable;
 
         public Handler(ITutoringDbContext dbContext, IUserContext userContext)
         {

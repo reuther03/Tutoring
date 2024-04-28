@@ -34,6 +34,8 @@ public record AddTutorAvailabilityCommand(TimeOnly From, TimeOnly To, Day Day) :
             if (tutor is null)
                 return Result.NotFound<Guid>("Tutor not found");
 
+
+
             var availability = Availability.Create(request.From, request.To, request.Day);
             tutor.AddAvailability(availability);
 

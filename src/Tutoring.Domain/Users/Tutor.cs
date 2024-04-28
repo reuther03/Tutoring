@@ -1,5 +1,4 @@
 ﻿using Tutoring.Common.Exceptions.Domain;
-using Tutoring.Domain.Availabilities;
 using Tutoring.Domain.Competences;
 using Tutoring.Domain.Users.ValueObjects;
 

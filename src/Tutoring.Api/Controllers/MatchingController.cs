@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
-using Tutoring.Application.Features.Matching.Query;
+using Tutoring.Application.Features.Matching.Queries;
 
 namespace Tutoring.Api.Controllers;
 
