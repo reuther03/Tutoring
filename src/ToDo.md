@@ -10,9 +10,7 @@
 > - }}}
 
 
-
-dodac kolejne filtry do wyszukiwania tutorow
-> - sprawdzi dzialanie avalibility 
+walidacja enuma bo mozna dodawac dni tygodnia ktore nie istnieja np 10 albo 0 i sie dodaja do bazy
 
 
 > - PUT `/competence-groups/{id}` - edycja CompetenceGroup razem z listą Competence do niego 

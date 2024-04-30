@@ -18,7 +18,7 @@ public class TutorsController : BaseController
 
     [HttpGet]
     [AuthorizeAllRoles]
-    public async Task<IActionResult> GetTutors([FromQuery] GetTutorDetailsQuery detailsQuery,
+    public async Task<IActionResult> GetTutors([FromQuery] GetAllTutorsQuery detailsQuery,
         CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(detailsQuery, cancellationToken);

@@ -23,6 +23,7 @@ public record GetTutorDetailsQuery(Guid UserId) : IQuery<TutorDetailsDto>
             var tutor = await _dbContext.Users.OfType<Tutor>()
                 .Include(t => t.CompetenceIds)
                 .Include(x => x.Reviews)
+                .Include(x => x.Availabilities)
                 .FirstOrDefaultAsync(x => x.Id == Domain.Users.UserId.From(request.UserId), cancellationToken);
 
             return tutor is null
