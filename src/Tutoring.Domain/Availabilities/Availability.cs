@@ -29,6 +29,12 @@ public class Availability : Entity<Guid>
             throw new DomainException("From must be before To");
         }
 
+        if (day is < Day.Monday or > Day.Sunday)
+        {
+            throw new DomainException("Invalid day");
+        }
+
+
         var availability = new Availability(Guid.NewGuid(), from, to, day);
         return availability;
     }
