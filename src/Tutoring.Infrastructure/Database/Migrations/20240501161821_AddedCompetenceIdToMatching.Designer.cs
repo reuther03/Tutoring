@@ -12,8 +12,8 @@ using Tutoring.Infrastructure.Database;
 namespace Tutoring.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(TutoringDbContext))]
-    [Migration("20240428010157_test")]
-    partial class test
+    [Migration("20240501161821_AddedCompetenceIdToMatching")]
+    partial class AddedCompetenceIdToMatching
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,6 +95,34 @@ namespace Tutoring.Infrastructure.Database.Migrations
                         .IsUnique();
 
                     b.ToTable("CompetencesGroups");
+                });
+
+            modelBuilder.Entity("Tutoring.Domain.Matching.Matching", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CompetenceId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CompetencesGroupName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TutorId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TutorId");
+
+                    b.ToTable("Matching");
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Reviews.Review", b =>
@@ -225,6 +253,25 @@ namespace Tutoring.Infrastructure.Database.Migrations
                         .WithMany("Competences")
                         .HasForeignKey("CompetenceGroupId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Tutoring.Domain.Matching.Matching", b =>
+                {
+                    b.HasOne("Tutoring.Domain.Users.User", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Tutoring.Domain.Users.User", "Tutor")
+                        .WithMany()
+                        .HasForeignKey("TutorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Tutor");
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Reviews.Review", b =>

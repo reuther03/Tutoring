@@ -7,6 +7,7 @@ namespace Tutoring.Application.Features.Users.Dto;
 
 public class TutorDetailsDto
 {
+    public Guid Id { get; init; }
     public string Email { get; init; } = null!;
     public string FirstName { get; init; } = null!;
     public string LastName { get; init; } = null!;
@@ -19,6 +20,7 @@ public class TutorDetailsDto
     {
         return new TutorDetailsDto
         {
+            Id = tutor.Id,
             Email = tutor.Email,
             FirstName = tutor.FirstName,
             LastName = tutor.LastName,
