@@ -119,7 +119,7 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
                     b.HasIndex("TutorId");
 
-                    b.ToTable("Matching");
+                    b.ToTable("Matchings");
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Reviews.Review", b =>

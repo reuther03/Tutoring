@@ -1,5 +1,4 @@
-﻿using Tutoring.Application.Features.Matching.Payloads;
-using Tutoring.Domain.Availabilities;
+﻿using Tutoring.Application.Features.Matchings.Payloads;
 using Tutoring.Domain.Competences;
 using Tutoring.Domain.Users;
 

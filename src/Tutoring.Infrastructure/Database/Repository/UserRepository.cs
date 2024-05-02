@@ -42,11 +42,7 @@ public class UserRepository : IUserRepository
             .Include(x => x.Subjects)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
-    public Task<Competence?> GetCompetenceByIdAsync(CompetenceId competenceId,
-        CancellationToken cancellationToken = default)
-        => _context.CompetencesGroups
-            .SelectMany(x => x.Competences)
-            .FirstOrDefaultAsync(x => x.Id == competenceId, cancellationToken);
+
 
     public Task<Subject?> GetSubjectByIdAsync(Guid subjectId, CancellationToken cancellationToken = default)
         => _context.Users.OfType<Student>()
@@ -55,10 +51,6 @@ public class UserRepository : IUserRepository
 
     public void RemoveSubject(Subject subject)
         => _context.Set<Subject>().Remove(subject);
-
-    #endregion
-
-    #region Reviews
 
     #endregion
 }

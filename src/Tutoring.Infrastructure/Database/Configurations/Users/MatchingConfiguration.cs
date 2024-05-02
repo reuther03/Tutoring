@@ -1,7 +1,6 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Tutoring.Domain.Matching;
+using Tutoring.Domain.Matchings;
 using Tutoring.Infrastructure.Database.Converters;
 
 namespace Tutoring.Infrastructure.Database.Configurations.Users;

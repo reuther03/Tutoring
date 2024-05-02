@@ -23,6 +23,11 @@ public class CompetenceGroupRepository : ICompetenceGroupRepository
             .Include(x => x.Competences)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
+    public Task<CompetenceGroup?> GetByCompetenceIdAsync(CompetenceId competenceId, CancellationToken cancellationToken = default)
+        => _context.CompetencesGroups
+            .Include(x => x.Competences)
+            .FirstOrDefaultAsync(x => x.Competences.Any(c => c.Id == competenceId), cancellationToken);
+
     public void Add(CompetenceGroup competenceGroup) => _context.CompetencesGroups.Add(competenceGroup);
 
     public void Remove(CompetenceGroup competenceGroup)

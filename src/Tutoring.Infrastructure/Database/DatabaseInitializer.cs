@@ -32,6 +32,9 @@ public class DatabaseInitializer : IHostedService
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
     // Seed competences groups
+
+    #region Competences
+
     private async Task SeedCompetencesGroupAsync(TutoringDbContext dbContext)
     {
         if (dbContext.CompetencesGroups.Any())
@@ -51,7 +54,8 @@ public class DatabaseInitializer : IHostedService
 
     private async Task SeedCompetencesMatematykaAsync(TutoringDbContext dbContext)
     {
-        var competencesGroup = await dbContext.CompetencesGroups.Include(competencesGroup => competencesGroup.Competences).FirstAsync(x => x.Name == "Matematyka");
+        var competencesGroup = await dbContext.CompetencesGroups.Include(competencesGroup => competencesGroup.Competences)
+            .FirstAsync(x => x.Name == "Matematyka");
         if (competencesGroup.Competences.Any())
         {
             return;
@@ -81,7 +85,8 @@ public class DatabaseInitializer : IHostedService
 
         var competences = new[]
         {
-            Competence.Create(new Name("Prawo Ohma"), new Description("Prawo Ohma opisuje zależność między napięciem, natężeniem prądu i oporem elektrycznym.")),
+            Competence.Create(new Name("Prawo Ohma"),
+                new Description("Prawo Ohma opisuje zależność między napięciem, natężeniem prądu i oporem elektrycznym.")),
             Competence.Create(new Name("Prawo Gaussa"), new Description("Prawo Gaussa opisuje pole elektryczne wokół ładunku elektrycznego.")),
             Competence.Create(new Name("Prawo Coulomba"), new Description("Prawo Coulomba opisuje siłę oddziaływania między dwoma ładunkami elektrycznymi."))
         };
@@ -110,4 +115,12 @@ public class DatabaseInitializer : IHostedService
         competencesGroup.AddCompetences(competences);
         await dbContext.SaveChangesAsync();
     }
+
+    #endregion
+
+    #region Useres
+
+
+
+    #endregion
 }

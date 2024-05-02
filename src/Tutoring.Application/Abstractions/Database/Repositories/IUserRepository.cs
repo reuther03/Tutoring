@@ -26,14 +26,8 @@ public interface IUserRepository
     #endregion
 
     #region Subjects
-
-    Task<Competence?> GetCompetenceByIdAsync(CompetenceId competenceId, CancellationToken cancellationToken = default);
     Task<Subject?> GetSubjectByIdAsync(Guid subjectId, CancellationToken cancellationToken = default);
     void RemoveSubject(Subject subject);
-
-    #endregion
-
-    #region Reviews
 
     #endregion
 }

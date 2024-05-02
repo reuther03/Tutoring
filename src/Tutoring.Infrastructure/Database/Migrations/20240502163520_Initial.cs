@@ -84,24 +84,25 @@ namespace Tutoring.Infrastructure.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Matching",
+                name: "Matchings",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CompetencesGroupName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    CompetenceId = table.Column<Guid>(type: "uuid", nullable: false),
                     StudentId = table.Column<Guid>(type: "uuid", nullable: false),
                     TutorId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Matching", x => x.Id);
+                    table.PrimaryKey("PK_Matchings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Matching_Users_StudentId",
+                        name: "FK_Matchings_Users_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Users",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Matching_Users_TutorId",
+                        name: "FK_Matchings_Users_TutorId",
                         column: x => x.TutorId,
                         principalTable: "Users",
                         principalColumn: "Id");
@@ -204,13 +205,13 @@ namespace Tutoring.Infrastructure.Database.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Matching_StudentId",
-                table: "Matching",
+                name: "IX_Matchings_StudentId",
+                table: "Matchings",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Matching_TutorId",
-                table: "Matching",
+                name: "IX_Matchings_TutorId",
+                table: "Matchings",
                 column: "TutorId");
 
             migrationBuilder.CreateIndex(
@@ -250,7 +251,7 @@ namespace Tutoring.Infrastructure.Database.Migrations
                 name: "Competences");
 
             migrationBuilder.DropTable(
-                name: "Matching");
+                name: "Matchings");
 
             migrationBuilder.DropTable(
                 name: "Reviews");

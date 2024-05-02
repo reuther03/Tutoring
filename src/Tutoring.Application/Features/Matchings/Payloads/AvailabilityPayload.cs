@@ -1,7 +1,7 @@
 ﻿using Tutoring.Common.ValueObjects;
 using Tutoring.Domain.Availabilities;
 
-namespace Tutoring.Application.Features.Matching.Payloads;
+namespace Tutoring.Application.Features.Matchings.Payloads;
 
 public class AvailabilityPayload
 {

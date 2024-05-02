@@ -12,7 +12,7 @@ using Tutoring.Infrastructure.Database;
 namespace Tutoring.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(TutoringDbContext))]
-    [Migration("20240501155639_Initial")]
+    [Migration("20240502163520_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -102,6 +102,9 @@ namespace Tutoring.Infrastructure.Database.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("CompetenceId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("CompetencesGroupName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -119,7 +122,7 @@ namespace Tutoring.Infrastructure.Database.Migrations
 
                     b.HasIndex("TutorId");
 
-                    b.ToTable("Matching");
+                    b.ToTable("Matchings");
                 });
 
             modelBuilder.Entity("Tutoring.Domain.Reviews.Review", b =>

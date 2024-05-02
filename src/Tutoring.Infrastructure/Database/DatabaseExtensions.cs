@@ -14,12 +14,17 @@ public static class DatabaseExtensions
     {
         services.Configure<DatabaseSettings>(configuration.GetRequiredSection(DatabaseSettings.SectionName));
         var postgresOptions = configuration.GetOptions<DatabaseSettings>(DatabaseSettings.SectionName);
-        services.AddDbContext<TutoringDbContext>(dbContextOptionsBuilder => { dbContextOptionsBuilder.UseNpgsql(postgresOptions.ConnectionString); });
+        services.AddDbContext<TutoringDbContext>(dbContextOptionsBuilder =>
+        {
+            dbContextOptionsBuilder.UseNpgsql(postgresOptions.ConnectionString);
+            // dbContextOptionsBuilder.AddInterceptors()
+        });
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
         services.AddScoped<ITutoringDbContext, TutoringDbContext>();
 
         services.AddScoped<ICompetenceGroupRepository, CompetenceGroupRepository>();
+        services.AddScoped<IMatchingRepository, MatchingRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -7,7 +7,7 @@ using Tutoring.Common.Primitives;
 using Tutoring.Common.Primitives.Pagination;
 using Tutoring.Domain.Users;
 
-namespace Tutoring.Application.Features.Matching.Queries;
+namespace Tutoring.Application.Features.Matchings.Queries;
 
 public record GetFilteredTutorsBySubjects(int Page = 1, int PageSize = 10) : IQuery<PaginatedList<TutorDetailsDto>>
 {

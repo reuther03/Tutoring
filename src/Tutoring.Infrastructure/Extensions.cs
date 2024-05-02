@@ -2,9 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tutoring.Application;
+using Tutoring.Application.Abstractions.Services;
 using Tutoring.Application.Behaviores;
 using Tutoring.Infrastructure.Auth;
 using Tutoring.Infrastructure.Database;
+using Tutoring.Infrastructure.Services;
 using Tutoring.Infrastructure.Swagger;
 
 namespace Tutoring.Infrastructure;
@@ -29,6 +31,8 @@ internal static class Extensions
 
             config.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
         });
+
+        services.AddScoped<ICompetenceUsageService, CompetenceUsageService>();
 
         return services;
     }

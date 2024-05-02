@@ -1,18 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Tutoring.Application.Abstractions.Database;
-using Tutoring.Application.Features.Matching.Payloads;
+using Tutoring.Application.Features.Matchings.Payloads;
 using Tutoring.Application.Features.Users.Dto;
 using Tutoring.Common.Abstractions;
 using Tutoring.Common.Extensions;
 using Tutoring.Common.Primitives;
 using Tutoring.Common.Primitives.Pagination;
-using Tutoring.Common.ValueObjects;
 using Tutoring.Domain.Availabilities;
 using Tutoring.Domain.Users;
 
-namespace Tutoring.Application.Features.Matching.Queries;
+namespace Tutoring.Application.Features.Matchings.Queries;
 
 public record GetFilteredTutorsQuery : IQuery<PaginatedList<TutorDetailsDto>>
 {
