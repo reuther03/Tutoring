@@ -11,8 +11,9 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
     /// </summary>
     public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    public bool IsArchived { get; private set; }
-    public DateTime? ArchivedAt { get; private set; }
+    //TODO set jest public bo w interceotorze nie bylo dostepnu do pola
+    public bool IsArchived { get; set; }
+    public DateTime? ArchivedAt { get; set; }
 
     protected AggregateRoot()
     {

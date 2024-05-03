@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Tutoring.Application.Abstractions.Database;
 using Tutoring.Application.Abstractions.Database.Repositories;
 using Tutoring.Common.Extensions;
+using Tutoring.Infrastructure.Database.Interceptors;
 using Tutoring.Infrastructure.Database.Repository;
 
 namespace Tutoring.Infrastructure.Database;
@@ -18,6 +19,8 @@ public static class DatabaseExtensions
         {
             dbContextOptionsBuilder.UseNpgsql(postgresOptions.ConnectionString);
             // dbContextOptionsBuilder.AddInterceptors()
+            dbContextOptionsBuilder.AddInterceptors(new ArchivingMatchInterceptor());
+
         });
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 

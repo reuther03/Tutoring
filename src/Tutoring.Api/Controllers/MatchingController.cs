@@ -35,4 +35,11 @@ public class MatchingController : BaseController
         var result = await _sender.Send(command);
         return HandleResult(result);
     }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteMatch([FromRoute] Guid id)
+    {
+        var result = await _sender.Send(new DeleteMatchCommand(id));
+        return HandleResult(result);
+    }
 }
