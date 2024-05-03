@@ -26,7 +26,11 @@ public record DeleteMatchCommand(Guid MatchingId) : ICommand
             if (match is null)
                 return Result.BadRequest("Match not found");
 
-            _matchRepository.ArchiveMatching(match);
+            if (match.IsArchived)
+                return Result.BadRequest("Match is already archived");
+
+            // _matchRepository.ArchiveMatching(match);
+            _matchRepository.RemoveMatching(match);
 
             var result = await _unitOfWork.CommitAsync(cancellationToken);
             return result.Map(request.MatchingId);

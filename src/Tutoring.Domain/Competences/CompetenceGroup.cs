@@ -16,8 +16,8 @@ public class CompetenceGroup : AggregateRoot<Guid>
     {
     }
 
-    private CompetenceGroup(Guid id, DateTime? archivedAt, bool isArchived, Name name, Description description)
-        : base(id, archivedAt, isArchived)
+    private CompetenceGroup(Guid id, Name name, Description description)
+        : base(id)
     {
         Name = name;
         Description = description;
@@ -25,7 +25,7 @@ public class CompetenceGroup : AggregateRoot<Guid>
 
     public static CompetenceGroup Create(Name name, Description description)
     {
-        var competencesGroup = new CompetenceGroup(Guid.NewGuid(), null, false, name, description);
+        var competencesGroup = new CompetenceGroup(Guid.NewGuid(), name, description);
         return competencesGroup;
     }
 

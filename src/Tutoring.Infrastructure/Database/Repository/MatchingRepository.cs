@@ -14,15 +14,16 @@ public class MatchingRepository : IMatchingRepository
     }
 
     public Task<Matching?> GetMatchingByIdAsync(Guid matchingId, CancellationToken cancellationToken = default)
-        => _context.Matchings.FirstOrDefaultAsync(x => x.Id == matchingId, cancellationToken);
+        => _context.Matchings
+            // .IgnoreQueryFilters()
+            .FirstOrDefaultAsync(x => x.Id == matchingId, cancellationToken);
 
     public async Task AddAsync(Matching matching, CancellationToken cancellationToken = default)
         => await _context.Matchings.AddAsync(matching, cancellationToken);
 
-    public void ArchiveMatching(Matching matching)
+    public void RemoveMatching(Matching matching)
     {
-        _context.Matchings.Attach(matching);
-        _context.Entry(matching).State = EntityState.Modified;
+        _context.Matchings.Remove(matching);
     }
 
     //TODO: czym sie to rozni

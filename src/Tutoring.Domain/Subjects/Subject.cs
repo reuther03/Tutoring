@@ -30,4 +30,6 @@ public class Subject : Entity<Guid>
     {
         _competenceIds.Add(competence.Id);
     }
+
+
 }

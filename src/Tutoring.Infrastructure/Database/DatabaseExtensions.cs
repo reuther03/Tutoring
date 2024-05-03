@@ -19,7 +19,7 @@ public static class DatabaseExtensions
         {
             dbContextOptionsBuilder.UseNpgsql(postgresOptions.ConnectionString);
             // dbContextOptionsBuilder.AddInterceptors()
-            dbContextOptionsBuilder.AddInterceptors(new ArchivingMatchInterceptor());
+            dbContextOptionsBuilder.AddInterceptors(new AggregateArchiveInterceptor());
 
         });
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

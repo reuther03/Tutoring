@@ -42,5 +42,7 @@ public class MatchingConfiguration : IEntityTypeConfiguration<Matching>
             .WithMany()
             .HasForeignKey(x => x.TutorId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasQueryFilter(x => !x.IsArchived);
     }
 }
