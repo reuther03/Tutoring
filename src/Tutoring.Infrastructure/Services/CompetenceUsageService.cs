@@ -3,7 +3,6 @@ using Tutoring.Application.Abstractions.Services;
 using Tutoring.Domain.Competences;
 using Tutoring.Domain.Users;
 using Tutoring.Infrastructure.Database;
-using Tutoring.Infrastructure.Database.Migrations;
 
 namespace Tutoring.Infrastructure.Services;
 

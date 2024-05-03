@@ -14,14 +14,14 @@ public sealed class Tutor : User
     {
     }
 
-    private Tutor(UserId id, Email email, Name firstname, Name lastname, Password password)
-        : base(id, email, firstname, lastname, password, Role.Tutor)
+    private Tutor(UserId id, DateTime? archivedAt, bool isArchived, Email email, Name firstname, Name lastname, Password password)
+        : base(id, archivedAt, isArchived, email, firstname, lastname, password, Role.Tutor)
     {
     }
 
     public static Tutor Create(Email email, Name firstname, Name lastname, Password password)
     {
-        var tutor = new Tutor(UserId.New(), email, firstname, lastname, password);
+        var tutor = new Tutor(UserId.New(), null, false, email, firstname, lastname, password);
         return tutor;
     }
 

@@ -1,5 +1,4 @@
 ﻿using Tutoring.Domain.Competences;
-using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Application.Abstractions.Database.Repositories;

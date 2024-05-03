@@ -14,14 +14,14 @@ public sealed class Student : User
     {
     }
 
-    private Student(UserId id, Email email, Name firstname, Name lastname, Password password)
-        : base(id, email, firstname, lastname, password, Role.Student)
+    private Student(UserId id, DateTime? archivedAt, bool isArchived, Email email, Name firstname, Name lastname, Password password)
+        : base(id, archivedAt, isArchived, email, firstname, lastname, password, Role.Student)
     {
     }
 
     public static Student Create(Email email, Name firstname, Name lastname, Password password)
     {
-        var student = new Student(UserId.New(), email, firstname, lastname, password);
+        var student = new Student(UserId.New(), null, false, email, firstname, lastname, password);
         return student;
     }
 

@@ -21,8 +21,8 @@ public sealed class Matching : AggregateRoot<Guid>
     {
     }
 
-    private Matching(Guid id, Name? competencesGroupName, CompetenceId competenceId, UserId studentId, UserId tutorId)
-        : base(id)
+    private Matching(Guid id, DateTime? archivedAt, bool isArchived, Name? competencesGroupName, CompetenceId competenceId, UserId studentId, UserId tutorId)
+        : base(id, archivedAt, isArchived)
     {
         CompetencesGroupName = competencesGroupName;
         CompetenceId = competenceId;
@@ -32,6 +32,6 @@ public sealed class Matching : AggregateRoot<Guid>
 
     public static Matching Create(Name? competencesGroupName, CompetenceId competenceId, UserId studentId, UserId tutorId)
     {
-        return new Matching(Guid.NewGuid(), competencesGroupName, competenceId, studentId, tutorId);
+        return new Matching(Guid.NewGuid(), null, false, competencesGroupName, competenceId, studentId, tutorId);
     }
 }

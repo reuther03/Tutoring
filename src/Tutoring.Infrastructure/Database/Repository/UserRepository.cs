@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tutoring.Application.Abstractions.Database.Repositories;
-using Tutoring.Domain.Competences;
 using Tutoring.Domain.Subjects;
 using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;

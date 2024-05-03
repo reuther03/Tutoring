@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Tutoring.Common.Primitives.DomainEvents;
 
 namespace Tutoring.Common.Primitives.Domain;
@@ -12,15 +11,18 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
     /// </summary>
     public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    // public bool IsArchived { get; private set; }
+    public bool IsArchived { get; private set; }
+    public DateTime? ArchivedAt { get; private set; }
 
     protected AggregateRoot()
     {
     }
 
-    protected AggregateRoot(TId id)
+    protected AggregateRoot(TId id, DateTime? archivedAt, bool isArchived = false)
         : base(id)
     {
+        IsArchived = isArchived;
+        ArchivedAt = archivedAt;
     }
 
     public void RaiseDomainEvent(IDomainEvent domainEvent)

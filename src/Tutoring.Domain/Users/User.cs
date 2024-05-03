@@ -26,8 +26,8 @@ public abstract class User : AggregateRoot<UserId>
     {
     }
 
-    protected User(UserId id, Email email, Name firstName, Name lastName, Password password, Role role)
-        : base(id)
+    protected User(UserId id, DateTime? archivedAt, bool isArchived ,Email email, Name firstName, Name lastName, Password password, Role role)
+        : base(id, archivedAt, isArchived)
     {
         Email = email;
         FirstName = firstName;
