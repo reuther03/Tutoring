@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Tutoring.Common.ValueObjects;
 using Tutoring.Domain.Competences;
+using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;
 
 namespace Tutoring.Infrastructure.Database;
@@ -27,11 +28,10 @@ public class DatabaseInitializer : IHostedService
         await SeedCompetencesMatematykaAsync(dbContext);
         await SeedCompetencesFizykaAsync(dbContext);
         await SeedCompetencesChemiaAsync(dbContext);
+        await SeedUsersAsync(dbContext);
     }
 
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
-
-    // Seed competences groups
 
     #region Competences
 
@@ -120,7 +120,34 @@ public class DatabaseInitializer : IHostedService
 
     #region Useres
 
+    private async Task SeedUsersAsync(TutoringDbContext dbContext)
+    {
+        var emailsToCheck = new List<string> { "Student@gmail.com", "Tutor@gmail.com", "BackOffice@gmail.com" };
+        var existingUsers = await dbContext.Users
+            .Where(u => emailsToCheck.Contains(u.Email))
+            .Select(u => u.Email)
+            .ToListAsync();
 
+        if (!existingUsers.Contains("Student@gmail.com"))
+        {
+            var student = Student.Create("Student@gmail.com", "Student", "Student", "testtest");
+            dbContext.Add(student);
+        }
+
+        if (!existingUsers.Contains("Tutor@gmail.com"))
+        {
+            var tutor = Tutor.Create("Tutor@gmail.com", "Tutor", "Tutor", "testtest");
+            dbContext.Add(tutor);
+        }
+
+        if (!existingUsers.Contains("BackOffice@gmail.com"))
+        {
+            var backOffice = BackOfficeUser.Create("BackOffice@gmail.com", "BackOffice", "BackOffice", "testtest");
+            dbContext.Add(backOffice);
+        }
+
+        await dbContext.SaveChangesAsync();
+    }
 
     #endregion
 }
