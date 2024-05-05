@@ -130,19 +130,19 @@ public class DatabaseInitializer : IHostedService
 
         if (!existingUsers.Contains("Student@gmail.com"))
         {
-            var student = Student.Create("Student@gmail.com", "Student", "Student", "testtest");
+            var student = Student.Create("Student@gmail.com", "Student", "Student", Password.Create("testtest"));
             dbContext.Add(student);
         }
 
         if (!existingUsers.Contains("Tutor@gmail.com"))
         {
-            var tutor = Tutor.Create("Tutor@gmail.com", "Tutor", "Tutor", "testtest");
+            var tutor = Tutor.Create("Tutor@gmail.com", "Tutor", "Tutor", Password.Create("testtest"));
             dbContext.Add(tutor);
         }
 
         if (!existingUsers.Contains("BackOffice@gmail.com"))
         {
-            var backOffice = BackOfficeUser.Create("BackOffice@gmail.com", "BackOffice", "BackOffice", "testtest");
+            var backOffice = BackOfficeUser.Create("BackOffice@gmail.com", "BackOffice", "BackOffice", Password.Create("testtest"));
             dbContext.Add(backOffice);
         }
 
