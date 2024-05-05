@@ -52,6 +52,14 @@ public class StudentsController : BaseController
         return HandleResult(result);
     }
 
+    [HttpDelete("Subjects/{subjectId:guid}/Competences/{competenceId:guid}")]
+    [AuthorizeRoles(Role.Student)]
+    public async Task<IActionResult> RemoveSubjectsCompetence([FromRoute] Guid subjectId, [FromRoute] Guid competenceId)
+    {
+        var result = await _sender.Send(new RemoveSubjectsCompetenceCommand(SubjectId: subjectId, CompetenceId: competenceId));
+        return HandleResult(result);
+    }
+
     [HttpDelete("Subjects/{subjectId:guid}")]
     [AuthorizeRoles(Role.Student)]
     public async Task<IActionResult> DeleteSubject([FromRoute] Guid subjectId)

@@ -31,5 +31,8 @@ public class Subject : Entity<Guid>
         _competenceIds.Add(competence.Id);
     }
 
-
+    public void RemoveCompetence(Competence competence)
+    {
+        _competenceIds.Remove(competence.Id);
+    }
 }
