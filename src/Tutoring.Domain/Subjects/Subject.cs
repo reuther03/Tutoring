@@ -1,3 +1,4 @@
+using Tutoring.Common.Exceptions.Domain;
 using Tutoring.Common.Primitives.Domain;
 using Tutoring.Common.ValueObjects;
 using Tutoring.Domain.Competences;
@@ -28,11 +29,19 @@ public class Subject : Entity<Guid>
 
     public void AddCompetence(Competence competence)
     {
+        if (_competenceIds.Contains(competence.Id))
+        {
+            throw new DomainException("Competence already added.");
+        }
         _competenceIds.Add(competence.Id);
     }
 
     public void RemoveCompetence(Competence competence)
     {
+        if (!_competenceIds.Contains(competence.Id))
+        {
+            throw new DomainException("Competence not found.");
+        }
         _competenceIds.Remove(competence.Id);
     }
 }

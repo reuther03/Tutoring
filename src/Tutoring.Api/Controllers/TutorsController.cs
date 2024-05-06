@@ -51,4 +51,13 @@ public class TutorsController : BaseController
         var result = await _sender.Send(command, cancellationToken);
         return HandleResult(result);
     }
+
+    [HttpDelete("competences/{competenceId:guid}")]
+    [AuthorizeRoles(Role.Tutor)]
+    public async Task<IActionResult> RemoveCompetenceFromTutor([FromRoute] Guid competenceId,
+        CancellationToken cancellationToken = default)
+    {
+        var result = await _sender.Send(new RemoveCompetenceCommand(competenceId), cancellationToken);
+        return HandleResult(result);
+    }
 }

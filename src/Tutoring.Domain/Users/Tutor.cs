@@ -34,4 +34,14 @@ public sealed class Tutor : User
 
         _competenceIds.Add(competenceId);
     }
+
+    public void RemoveCompetence(CompetenceId competenceId)
+    {
+        if (!_competenceIds.Contains(competenceId))
+        {
+            throw new DomainException("Competence not found.");
+        }
+
+        _competenceIds.Remove(competenceId);
+    }
 }
