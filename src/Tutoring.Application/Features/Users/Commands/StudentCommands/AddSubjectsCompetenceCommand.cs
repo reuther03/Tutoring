@@ -9,9 +9,7 @@ using Tutoring.Common.Primitives;
 namespace Tutoring.Application.Features.Users.Commands.StudentCommands;
 
 public record AddSubjectsCompetenceCommand(
-    [property: JsonIgnore]
     Guid SubjectId,
-    [property: JsonIgnore]
     Guid CompetenceId) : ICommand<Guid>
 {
     internal sealed class Handler : ICommandHandler<AddSubjectsCompetenceCommand, Guid>
@@ -44,7 +42,7 @@ public record AddSubjectsCompetenceCommand(
             if (competence is null)
                 return Result<Guid>.NotFound("Competence not found");
 
-            subject.AddCompetence(competence);
+            subject.AddCompetence(competence.Id);
 
             var result = await _unitOfWork.CommitAsync(cancellationToken);
             return result.Map(subject.Id);

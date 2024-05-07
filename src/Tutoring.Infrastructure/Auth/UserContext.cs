@@ -24,6 +24,13 @@ internal sealed class UserContext : IUserContext
         _httpContextAccessor = httpContextAccessor;
     }
 
+    [MemberNotNull(nameof(UserId), nameof(Email), nameof(Role))]
+    public void EnsureAuthenticated()
+    {
+        if (!IsAuthenticated)
+            throw new UnauthorizedAccessException("User is not authenticated");
+    }
+
     private static UserId? GetUserIdFromClaims(ClaimsPrincipal? claims)
     {
         if (claims is null)

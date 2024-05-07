@@ -15,21 +15,21 @@ public record RemoveSubjectsCompetenceCommand(Guid SubjectId, Guid CompetenceId)
     {
         private readonly IUserContext _userContext;
         private readonly IUserRepository _userRepository;
-        private readonly ICompetenceGroupRepository _competenceGroupRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public Handler(IUserContext userContext, IUserRepository userRepository, ICompetenceGroupRepository competenceGroupRepository, IUnitOfWork unitOfWork)
+        public Handler(IUserContext userContext, IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
             _userContext = userContext;
             _userRepository = userRepository;
-            _competenceGroupRepository = competenceGroupRepository;
             _unitOfWork = unitOfWork;
         }
 
         public async Task<Result> Handle(RemoveSubjectsCompetenceCommand request, CancellationToken cancellationToken)
         {
-            var userRole = _userContext.Role;
-            if (userRole != Role.Student)
+            if (!_userContext.IsAuthenticated)
+                return Result<Unit>.Unauthorized("User is not authenticated");
+
+            if (_userContext.Role != Role.Student)
                 return Result<Unit>.Unauthorized("User is not a student");
 
             var student = await _userRepository.GetStudentByIdAsync(_userContext.UserId, cancellationToken);
@@ -40,11 +40,8 @@ public record RemoveSubjectsCompetenceCommand(Guid SubjectId, Guid CompetenceId)
             if (subjects is null)
                 return Result<Unit>.BadRequest("Subject not found");
 
-            var competence = await _competenceGroupRepository.GetCompetenceByIdAsync(request.CompetenceId, cancellationToken);
-            if (competence is null)
-                return Result<Unit>.BadRequest("Competence not found");
 
-            subjects.RemoveCompetence(competence);
+            subjects.RemoveCompetence(request.CompetenceId);
 
             var result = await _unitOfWork.CommitAsync(cancellationToken);
             return result.Map(Unit.Value);

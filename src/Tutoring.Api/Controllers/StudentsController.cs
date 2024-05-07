@@ -42,9 +42,7 @@ public class StudentsController : BaseController
 
     [HttpPost("Subjects/{subjectId:guid}/Competences/{competenceId:guid}")]
     [AuthorizeRoles(Role.Student)]
-    public async Task<IActionResult> AddSubjectsCompetence(
-        [FromRoute] Guid subjectId,
-        [FromRoute] Guid competenceId)
+    public async Task<IActionResult> AddSubjectsCompetence([FromRoute] Guid subjectId, [FromRoute] Guid competenceId)
     {
         var result = await _sender.Send(new AddSubjectsCompetenceCommand(
             SubjectId: subjectId,

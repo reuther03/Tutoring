@@ -27,21 +27,21 @@ public class Subject : Entity<Guid>
         return subject;
     }
 
-    public void AddCompetence(Competence competence)
+    public void AddCompetence(CompetenceId competenceId)
     {
-        if (_competenceIds.Contains(competence.Id))
+        if (_competenceIds.Contains(competenceId))
         {
             throw new DomainException("Competence already added.");
         }
-        _competenceIds.Add(competence.Id);
+        _competenceIds.Add(competenceId);
     }
 
-    public void RemoveCompetence(Competence competence)
+    public void RemoveCompetence(CompetenceId competenceId)
     {
-        if (!_competenceIds.Contains(competence.Id))
+        if (!_competenceIds.Contains(competenceId))
         {
             throw new DomainException("Competence not found.");
         }
-        _competenceIds.Remove(competence.Id);
+        _competenceIds.Remove(competenceId);
     }
 }

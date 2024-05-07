@@ -12,4 +12,7 @@ public interface IUserContext
     public UserId? UserId { get; }
     public Email? Email { get; }
     public Role? Role { get; }
+
+    [MemberNotNull(nameof(UserId), nameof(Email), nameof(Role))]
+    public void EnsureAuthenticated();
 }

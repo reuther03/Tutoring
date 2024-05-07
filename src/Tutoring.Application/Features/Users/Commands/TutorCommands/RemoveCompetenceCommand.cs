@@ -15,39 +15,32 @@ public record RemoveCompetenceCommand(Guid CompetenceId) : ICommand
     {
         private readonly IUserContext _userContext;
         private readonly IUserRepository _userRepository;
-        private readonly ICompetenceGroupRepository _competenceGroupRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public RemoveCompetenceCommandHandler(IUserContext userContext, IUserRepository userRepository, ICompetenceGroupRepository competenceGroupRepository,
-            IUnitOfWork unitOfWork)
+        public RemoveCompetenceCommandHandler(IUserContext userContext, IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
             _userContext = userContext;
             _userRepository = userRepository;
-            _competenceGroupRepository = competenceGroupRepository;
             _unitOfWork = unitOfWork;
         }
 
         public async Task<Result> Handle(RemoveCompetenceCommand request, CancellationToken cancellationToken)
         {
-            var userRole = _userContext.Role;
-            if (userRole != Role.Tutor)
+            // _userContext.EnsureAuthenticated();
+            if (!_userContext.IsAuthenticated)
+                return Result<Unit>.Unauthorized("User is not authenticated");
+
+            if (_userContext.Role != Role.Tutor)
                 return Result<Unit>.Unauthorized("User is not a tutor");
 
-            //TODO: mam sprawdzac id czy jest nulem, czy zostawic !
-            var tutor = await _userRepository.GetTutorByIdAsync(_userContext.UserId!, cancellationToken);
+            var tutor = await _userRepository.GetTutorByIdAsync(_userContext.UserId, cancellationToken);
             if (tutor is null)
                 return Result<Unit>.BadRequest("Tutor not found");
 
-            var competence = await _competenceGroupRepository.GetCompetenceByIdAsync(request.CompetenceId, cancellationToken);
-            if (competence is null)
-                return Result<Unit>.BadRequest("Competence not found");
-
-            tutor.RemoveCompetence(competence.Id);
+            tutor.RemoveCompetence(request.CompetenceId);
             var result = await _unitOfWork.CommitAsync(cancellationToken);
 
             return result.Map(Unit.Value);
-
-
         }
     }
 }
