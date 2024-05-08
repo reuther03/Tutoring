@@ -37,6 +37,10 @@ public static class SwaggerExtensions
             {
                 { securityScheme, new List<string>() }
             });
+
+            swagger.EnableAnnotations();
+
+            swagger.IncludeXmlComments("Tutoring.Api.xml");
         });
 
 
