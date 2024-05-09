@@ -65,5 +65,54 @@
              <param name="cancellationToken"></param>
              <returns> </returns>
         </member>
+        <member name="M:Tutoring.Api.Controllers.ReviewsController.GetMyReviews(System.Int32,System.Int32)">
+             <summary>
+              Gets the current user's reviews
+             </summary>
+             <remarks>
+             Example request:
+            
+             GET /reviews/me
+             </remarks>
+             <param name="page">page number</param>
+             <param name="pageSize">page size</param>
+             <returns>Returns the current user's reviews</returns>
+        </member>
+        <member name="M:Tutoring.Api.Controllers.ReviewsController.GetUserReviews(System.Guid,System.Int32,System.Int32)">
+             <summary>
+              Gets the user's reviews
+             </summary>
+             <remarks>
+             Example request: <br/>
+            
+             GET /reviews/{userId} <br/>
+            
+             </remarks>
+             <param name="userId">The user's id</param>
+             <param name="page">The page number</param>
+             <param name="pageSize">The page size</param>
+             <returns>Returns the user's reviews</returns>
+        </member>
+        <member name="M:Tutoring.Api.Controllers.ReviewsController.AddReview(Tutoring.Application.Features.Users.Commands.ReviewCommands.AddReviewCommand)">
+             <summary>
+             Adds a review
+             </summary>
+             <remarks>
+              Example request: <br/>
+            
+             { <br/>
+              "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6", <br/>
+              "description": "string", <br/>
+              "rating": 0 <br/>
+             } <br/>
+              POST /reviews
+             </remarks>
+             <param name="command">
+             userId (Guid): The user's id <br/>
+             description (string): The review's description <br/>
+             rating (int): The review's rating (1-5) <br/>
+             </param>
+             <returns></returns>
+        </member>
     </members>
 </doc>
