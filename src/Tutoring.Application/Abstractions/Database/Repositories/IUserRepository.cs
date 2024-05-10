@@ -1,4 +1,5 @@
-﻿using Tutoring.Domain.Subjects;
+﻿using Tutoring.Domain.Reviews;
+using Tutoring.Domain.Subjects;
 using Tutoring.Domain.Users;
 using Tutoring.Domain.Users.ValueObjects;
 
@@ -29,4 +30,7 @@ public interface IUserRepository
     void RemoveSubject(Subject subject);
 
     #endregion
+
+    Task<Review?> GetReviewByIdAsync(Guid reviewId, CancellationToken cancellationToken = default);
+    void RemoveReview(Review review);
 }

@@ -82,4 +82,11 @@ public class ReviewsController : BaseController
         var result = await _sender.Send(command);
         return HandleResult(result);
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteReview(DeleteReviewCommand command)
+    {
+        var result = await _sender.Send(command);
+        return HandleResult(result);
+    }
 }

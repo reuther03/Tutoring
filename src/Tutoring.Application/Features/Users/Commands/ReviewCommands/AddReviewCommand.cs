@@ -34,6 +34,9 @@ public record AddReviewCommand(Guid UserId, string Description, int Rating) : IQ
             if (user is null)
                 return Result.NotFound<Guid>("User not found.");
 
+            if (user.Role == _userContext.Role)
+                return Result.BadRequest<Guid>("You can't review user with the same role.");
+
             var review = Review.Create(new Description(request.Description), request.Rating, currentUserId!);
             user.AddReview(review);
 
