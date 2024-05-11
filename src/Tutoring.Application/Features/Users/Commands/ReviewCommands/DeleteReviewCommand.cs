@@ -31,7 +31,6 @@ public record DeleteReviewCommand(Guid ReviewId, Guid UserId) : ICommand
                 return Result.NotFound("User not found");
             }
 
-
             var user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
             if (user is null)
             {

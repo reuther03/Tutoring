@@ -12,6 +12,8 @@ public interface IUserRepository
     Task<User?> GetByEmailAsync(string email);
     Task AddAsync(User user, CancellationToken cancellationToken = default);
 
+    void RemoveUser(User user);
+
     #region Tutor
 
     Task<Tutor?> GetTutorByIdAsync(UserId id, CancellationToken cancellationToken = default);
@@ -33,4 +35,5 @@ public interface IUserRepository
 
     Task<Review?> GetReviewByIdAsync(Guid reviewId, CancellationToken cancellationToken = default);
     void RemoveReview(Review review);
+
 }

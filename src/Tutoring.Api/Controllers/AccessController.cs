@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tutoring.Api.Controllers.Base;
+using Tutoring.Application.Features.Users.Commands;
 using Tutoring.Application.Features.Users.Commands.Access;
 using Tutoring.Application.Features.Users.Queries.Users;
 using Tutoring.Domain.Users.ValueObjects;
@@ -90,6 +92,14 @@ public class AccessController : BaseController
     public async Task<IActionResult> Login(LoginCommand loginCommand, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(loginCommand, cancellationToken);
+        return HandleResult(result);
+    }
+
+    [HttpDelete]
+    [Authorize]
+    public async Task<IActionResult> ArchiveUser()
+    {
+        var result = await _sender.Send(new ArchiveUserCommand());
         return HandleResult(result);
     }
 }

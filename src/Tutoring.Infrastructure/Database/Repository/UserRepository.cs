@@ -28,6 +28,9 @@ public class UserRepository : IUserRepository
     public async Task AddAsync(User user, CancellationToken cancellationToken = default)
         => await _context.Users.AddAsync(user, cancellationToken);
 
+    public void RemoveUser(User user)
+        => _context.Users.Remove(user);
+
     #region Tutor
 
     public async Task<Tutor?> GetTutorByIdAsync(UserId id, CancellationToken cancellationToken = default)
