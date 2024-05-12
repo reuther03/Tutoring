@@ -83,6 +83,15 @@ public class ReviewsController : BaseController
         return HandleResult(result);
     }
 
+    /// <summary>
+    ///  Updates a review
+    /// </summary>
+    /// <remarks>
+    ///  Example request: <br/>
+    ///  Delete /reviews <br/>
+    /// </remarks>
+    /// <param name="command"></param>
+    /// <returns> </returns>
     [HttpDelete]
     public async Task<IActionResult> DeleteReview(DeleteReviewCommand command)
     {

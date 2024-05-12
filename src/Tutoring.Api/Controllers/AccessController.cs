@@ -95,6 +95,14 @@ public class AccessController : BaseController
         return HandleResult(result);
     }
 
+    /// <summary>
+    /// Archives the current user
+    /// </summary>
+    /// <remarks>
+    /// Example request: <br/>
+    /// DELETE /access/archive-user
+    /// </remarks>
+    /// <returns></returns>
     [HttpDelete]
     [Authorize]
     public async Task<IActionResult> ArchiveUser()

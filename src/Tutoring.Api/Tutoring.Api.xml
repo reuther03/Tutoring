@@ -65,6 +65,16 @@
              <param name="cancellationToken"></param>
              <returns> </returns>
         </member>
+        <member name="M:Tutoring.Api.Controllers.AccessController.ArchiveUser">
+            <summary>
+            Archives the current user
+            </summary>
+            <remarks>
+            Example request: <br/>
+            DELETE /access/archive-user
+            </remarks>
+            <returns></returns>
+        </member>
         <member name="M:Tutoring.Api.Controllers.ReviewsController.GetMyReviews(System.Int32,System.Int32)">
              <summary>
               Gets the current user's reviews
